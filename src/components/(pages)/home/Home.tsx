@@ -8,9 +8,9 @@ import TeamSection from './TeamSection';
 
 const Home = () => {
     return (
-        <div className="space-y-12">
+        <div className="space-y-16 max-w-7xl mx-auto">
             <BannerSection />
-            <div className=' pb-1'><ResearchSection /></div>
+            <ResearchSection />
             <ProjectSection />
             <PublicationSection />
             <ConferenceSection />

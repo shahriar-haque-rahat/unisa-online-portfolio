@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import SessionProvider from "@/providers/SessionProvider";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { Poppins } from '@next/font/google';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  display: "swap",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  display: "swap",
+const font = Poppins({
+  subsets: ['latin'],
+  weight: '400',
+  style: 'normal',
 });
 
 export const metadata: Metadata = {
@@ -27,10 +22,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}>
+      <body className={`${font} antialiased bg-gray-100`}>
         <SessionProvider>
           <Navbar />
-          <div className=" max-w-[2560px] mx-auto">
+          <div className=" max-w-[2560px] mx-auto mt-16">
             {children}
           </div>
           <Footer />

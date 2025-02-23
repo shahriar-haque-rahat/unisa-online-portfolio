@@ -27,9 +27,9 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
                 className={`relative p-1 bg-transparent text-white focus:outline-none`}
                 whileHover="hover"
             >
-                <div className={`bg-primary py-2 px-3 ${className}`}>{children}</div>
+                <div className={`text-sm bg-primary py-1 px-3 ${className}`}>{children}</div>
                 <motion.span
-                    className="absolute border border-primary pointer-events-none"
+                    className={`absolute border border-primary pointer-events-none ${className}`}
                     // Use a negative inset so the border covers the very edge.
                     style={{ inset: '-1px' }}
                     initial={{
@@ -58,12 +58,12 @@ export const SecondaryButton: React.FC<PrimaryButtonProps> = ({
         <div className="inline-block">
             <motion.button
                 onClick={onClick}
-                className={`relative py-2 px-3 bg-transparent text-primary focus:outline-none`}
+                className={`relative p-1 bg-transparent text-white focus:outline-none`}
                 whileHover="hover"
             >
-                <div className={` ${className}`}>{children}</div>
+                <div className={`text-sm bg-white text-primary py-1 px-3 ${className}`}>{children}</div>
                 <motion.span
-                    className="absolute border border-primary pointer-events-none"
+                    className={`absolute border border-white pointer-events-none ${className}`}
                     // Use a negative inset so the border covers the very edge.
                     style={{ inset: '-1px' }}
                     initial={{

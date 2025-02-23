@@ -75,7 +75,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 variants={headerVariants}
                 initial="hidden"
                 animate="visible"
-                className="bg-white shadow-lg border-b border-gray-200"
+                className="bg-white shadow-md border-b border-gray-200"
             >
                 <div className="w-full mx-auto px-6 py-4 flex justify-between items-center">
                     <h2 className="text-2xl font-bold text-gray-800">Admin Panel</h2>
