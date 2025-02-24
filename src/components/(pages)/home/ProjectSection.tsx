@@ -12,7 +12,7 @@ const ProjectSection = ({data}: any) => {
     return (
         <div className="space-y-6">
             <SectionHeader>Project</SectionHeader>
-            {data.projectData.map((project: any, index: any) => {
+            {data.projectData.slice(0, 2).map((project: any, index: any) => {
                 const truncatedText = project.description.split(" ").slice(0, 80).join(" ") + "...";
 
                 // Determine the layout: Image on the right or left depending on the section index
