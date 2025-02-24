@@ -104,7 +104,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                                 href={item.route}
                                 className={`px-4 py-2 rounded-md whitespace-nowrap transition ${isActive
                                     ? "bg-primary text-white shadow"
-                                    : "bg-white text-gray-700 hover:bg-blue-50"
+                                    : "bg-white text-gray-700 hover:bg-primary"
                                     }`}
                             >
                                 {item.label}

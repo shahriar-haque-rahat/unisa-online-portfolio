@@ -26,7 +26,7 @@ const ProjectSection = ({data}: any) => {
                         {/* Text Section */}
                         <div className="w-3/5 p-8 bg-white flex flex-col justify-between">
                             <div>
-                                <h2 className="text-xl font-semibold text-blue-700">
+                                <h2 className="text-xl font-semibold text-primary">
                                     {project.title}
                                 </h2>
                                 <p className="text-gray-600 mt-2 text-sm">{truncatedText}</p>

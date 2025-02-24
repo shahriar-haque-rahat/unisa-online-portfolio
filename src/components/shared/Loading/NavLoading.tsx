@@ -20,21 +20,21 @@ const NavLoading = () => {
     return (
         <div className="flex items-center justify-center space-x-1">
             <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
+                className="w-2 h-2 bg-primary rounded-full"
                 variants={dotVariants}
                 initial="initial"
                 animate="animate"
                 transition={transition(0)}
             />
             <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
+                className="w-2 h-2 bg-primary rounded-full"
                 variants={dotVariants}
                 initial="initial"
                 animate="animate"
                 transition={transition(0.1)}
             />
             <motion.div
-                className="w-2 h-2 bg-blue-500 rounded-full"
+                className="w-2 h-2 bg-primary rounded-full"
                 variants={dotVariants}
                 initial="initial"
                 animate="animate"
