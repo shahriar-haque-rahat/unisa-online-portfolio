@@ -3,35 +3,38 @@
 import { PrimaryButton } from '@/components/shared/Button';
 import React from 'react';
 import SectionHeader from './SectionHeader';
+import { useRouter } from 'next/navigation';
 
-// Dummy data for conference sections
+// Dummy data for conferences
 const conferenceData = [
     {
         id: 1,
         title: "Request Letters and Records",
         description: `As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.`,
+        link: "/link",
     },
     {
         id: 2,
         title: "Transcript Requests",
         description: `Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.`,
+        link: "/link",
     },
     {
         id: 3,
         title: "Name Change Requests",
         description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
+        link: "/link",
     },
 ];
 
-const handleDetailsClick = () => {
+const handleDetails = () => {
     console.log("Details")
 }
 
-const handleShowMore = () => {
-    console.log("Show More")
-}
 
 const ConferenceSection: React.FC = () => {
+    const router = useRouter();
+
     return (
         <>
             <div className=" space-y-6">
@@ -51,7 +54,7 @@ const ConferenceSection: React.FC = () => {
 
                             {/* Details Button */}
                             <div className="flex justify-end">
-                                <PrimaryButton onClick={handleDetailsClick} className="text-sm">
+                                <PrimaryButton onClick={handleDetails} className="text-sm">
                                     Details
                                 </PrimaryButton>
                             </div>
@@ -60,7 +63,7 @@ const ConferenceSection: React.FC = () => {
                 })}
 
                 <div className=' flex justify-center'>
-                    <PrimaryButton onClick={handleShowMore} className="text-lg">
+                    <PrimaryButton onClick={() => router.push('/publication')} className="text-lg">
                         Show More
                     </PrimaryButton>
                 </div>

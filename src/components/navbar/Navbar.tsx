@@ -1,12 +1,13 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const pathname = usePathname(); // to check the active route
+    const pathname = usePathname();
+    const router = useRouter();
 
     const toggleMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -17,7 +18,6 @@ const Navbar: React.FC = () => {
         { name: 'Project', path: '/project' },
         { name: 'Research', path: '/research' },
         { name: 'Publication', path: '/publication' },
-        { name: 'Conference', path: '/conference' },
         { name: 'News', path: '/news' },
         { name: 'Team', path: '/team' },
         { name: 'Contact', path: '/contact' },
@@ -26,11 +26,14 @@ const Navbar: React.FC = () => {
     const isActive = (route: string) => pathname === route;
 
     return (
-        <header className="bg-white shadow-md fixed w-full h-16 top-0 left-0 z-50">
+        <header className="px-4 bg-white shadow-md fixed w-full h-16 top-0 left-0 z-50">
             <div className="max-w-7xl mx-auto mt-4 flex items-center justify-between">
                 {/* Logo Section */}
-                <div className="text-xl font-semibold text-primary">
-                    <a href="/">Logo</a>
+                <div
+                    className="text-xl font-semibold text-primary cursor-pointer"
+                    onClick={() => router.push('/')}
+                >
+                    Logo
                 </div>
 
                 {/* Desktop Navigation */}
@@ -38,16 +41,16 @@ const Navbar: React.FC = () => {
                     {routes.map((route) => (
                         <motion.a
                             key={route.path}
-                            href={route.path}
-                            className={`${isActive(route.path)
-                                    ? 'text-primary bg-white font-bold border-b-2 border-primary'
-                                    : 'text-gray-600 opacity-80'
+                            onClick={() => router.push(route.path)}
+                            className={`cursor-pointer ${isActive(route.path)
+                                ? 'text-primary bg-white font-bold border-b-2 border-primary'
+                                : 'text-gray-600 opacity-80'
                                 } hover:text-primary font-medium transition-colors relative`}
                             whileHover={{ y: -2 }}
                             transition={{ type: 'spring', stiffness: 300 }}
                         >
                             {route.name}
-                            {/* Add border animation on hover */}
+                            {/* Border animation on hover */}
                             <motion.div
                                 className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
                                 initial={{ scaleX: 0 }}
@@ -117,12 +120,14 @@ const Navbar: React.FC = () => {
                             {routes.map((route, index) => (
                                 <motion.a
                                     key={route.path}
-                                    href={route.path}
-                                    className={`block text-gray-600 ${isActive(route.path)
-                                            ? 'font-bold bg-white text-xl text-primary border-b-2 border-primary'
-                                            : ''
+                                    onClick={() => {
+                                        router.push(route.path);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                    className={`block text-gray-600 cursor-pointer ${isActive(route.path)
+                                        ? 'font-bold bg-white text-xl text-primary border-b-2 border-primary'
+                                        : ''
                                         } hover:bg-gray-100`}
-                                    onClick={() => setIsMobileMenuOpen(false)}
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: index * 0.1, type: 'spring', stiffness: 150 }}

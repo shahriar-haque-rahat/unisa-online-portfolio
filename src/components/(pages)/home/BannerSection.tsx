@@ -1,101 +1,79 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const slides = [
+interface Slide {
+    image: string;
+    title: string;
+    description: string;
+}
+
+// Dummy data – in your production code this can be passed as props
+const bannerData: Slide[] = [
     {
-        title: 'Slide One',
-        subtitle: 'This is the first slide with a stunning image.',
-        buttonText: 'Learn More',
-        imageUrl: 'https://via.placeholder.com/1920x1080/111111/FFFFFF?text=Slide+1',
+        image: '/images/slide1.jpg',
+        title: 'Professional Design',
+        description: 'Crafting engaging and modern designs for your portfolio.',
     },
     {
-        title: 'Slide Two',
-        subtitle: 'Experience the beauty of our second slide.',
-        buttonText: 'Discover',
-        imageUrl: 'https://via.placeholder.com/1920x1080/222222/FFFFFF?text=Slide+2',
+        image: '/images/slide2.jpg',
+        title: 'Responsive Layout',
+        description: 'Built with Tailwind CSS for a fully responsive experience.',
     },
     {
-        title: 'Slide Three',
-        subtitle: 'Our third slide is designed to captivate your audience.',
-        buttonText: 'Get Started',
-        imageUrl: 'https://via.placeholder.com/1920x1080/333333/FFFFFF?text=Slide+3',
+        image: '/images/slide3.jpg',
+        title: 'Smooth Animations',
+        description: 'Enhanced with Framer Motion for seamless slide transitions.',
     },
 ];
 
-interface Slide {
-    title: string;
-    subtitle: string;
-    buttonText?: string;
-    imageUrl: string;
-}
-
-interface BannerSliderProps {
-    slides: Slide[];
-    autoPlayDelay?: number; // in milliseconds
-}
-
 const swipeConfidenceThreshold = 10000;
-const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
-
-const variants = {
-    enter: (direction: number) => ({
-        x: direction > 0 ? 1000 : -1000,
-        opacity: 0,
-    }),
-    center: {
-        x: 0,
-        opacity: 1,
-    },
-    exit: (direction: number) => ({
-        x: direction < 0 ? 1000 : -1000,
-        opacity: 0,
-    }),
+const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
 };
 
-const BannerSlider: React.FC<BannerSliderProps> = ({ autoPlayDelay = 5000 }) => {
-    // "page" is a counter that can exceed the number of slides. We use modulus to determine the slide index.
+const BannerSection: React.FC = () => {
+    // State: [current page index, direction of swipe]
     const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
-    const slideIndex = ((page % slides.length) + slides.length) % slides.length; // ensures non-negative index
-    const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
+    // Calculate current slide index dynamically
+    const index = ((page % bannerData.length) + bannerData.length) % bannerData.length;
+
+    // Function to change the slide, accepts 1 for next, -1 for previous
     const paginate = (newDirection: number) => {
         setPage([page + newDirection, newDirection]);
     };
 
-    const resetAutoPlay = () => {
-        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-        autoPlayRef.current = setInterval(() => {
-            paginate(1);
-        }, autoPlayDelay);
-    };
-
+    // Auto-advance slide every 3 seconds
     useEffect(() => {
-        resetAutoPlay();
-        return () => {
-            if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-        };
-    }, [page, autoPlayDelay]);
+        const timer = setInterval(() => {
+            paginate(1);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [page]);
 
-    const handleMouseEnter = () => {
-        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    };
-
-    const handleMouseLeave = () => {
-        resetAutoPlay();
+    // Variants for slide transition
+    const variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 300 : -300,
+            opacity: 0,
+        }),
+        center: {
+            x: 0,
+            opacity: 1,
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? 300 : -300,
+            opacity: 0,
+        }),
     };
 
     return (
-        <div
-            className="relative w-full overflow-hidden"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
+        <div className="w-full h-96 relative overflow-hidden">
             <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                     key={page}
-                    className="w-full relative"
                     custom={direction}
                     variants={variants}
                     initial="enter"
@@ -116,45 +94,23 @@ const BannerSlider: React.FC<BannerSliderProps> = ({ autoPlayDelay = 5000 }) => 
                             paginate(-1);
                         }
                     }}
+                    className="absolute w-full h-full"
                 >
-                    {/* Background image */}
-                    <img
-                        src={slides[slideIndex].imageUrl}
-                        alt={slides[slideIndex].title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    {/* Overlay for readability */}
-                    <div className="absolute inset-0 bg-black opacity-50"></div>
-                    {/* Slide content */}
-                    <div className="relative z-10 max-w-7xl mx-auto text-center py-24 px-6">
-                        <h1 className="text-4xl sm:text-5xl font-bold text-white">
-                            {slides[slideIndex].title}
-                        </h1>
-                        <p className="mt-4 text-lg sm:text-xl text-white">
-                            {slides[slideIndex].subtitle}
+                    <div
+                        className="w-full h-full bg-cover bg-center flex flex-col justify-center items-center bg-gray-900 bg-blend-multiply"
+                        style={{ backgroundImage: `url(${bannerData[index].image})` }}
+                    >
+                        <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">
+                            {bannerData[index].title}
+                        </h2>
+                        <p className="text-xl text-white drop-shadow-md">
+                            {bannerData[index].description}
                         </p>
-                        {slides[slideIndex].buttonText && (
-                            <div className="mt-6">
-                                <button className="bg-secondary text-white px-6 py-3 rounded-md text-lg hover:bg-secondary-dark transition-all duration-300">
-                                    {slides[slideIndex].buttonText}
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </motion.div>
             </AnimatePresence>
-
-            {/* Process Dots */}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                {slides.map((_, idx) => (
-                    <div
-                        key={idx}
-                        className={`w-3 h-3 rounded-full ${idx === slideIndex ? 'bg-white' : 'bg-gray-500'}`}
-                    />
-                ))}
-            </div>
         </div>
     );
 };
 
-export default BannerSlider;
+export default BannerSection;

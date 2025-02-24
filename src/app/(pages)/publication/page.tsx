@@ -1,10 +1,12 @@
 import Publication from '@/components/(pages)/publication/Publication';
+import Header from '@/components/shared/Header';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <Publication/>
+            <Header>Publication</Header>
+            <Publication />
         </div>
     );
 };

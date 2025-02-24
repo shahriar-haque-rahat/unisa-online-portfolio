@@ -11,7 +11,7 @@ interface MotionWrapperProps extends MotionProps {
 export const HoverWrapper: React.FC<MotionWrapperProps> = ({ children, className, ...rest }) => {
     return (
         <motion.div
-            whileHover={{ scale: 1.05 }} // Slight zoom on hover
+            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
             className={className}
             {...rest}
