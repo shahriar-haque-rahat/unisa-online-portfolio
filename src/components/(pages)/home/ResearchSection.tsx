@@ -3,49 +3,14 @@
 import React from "react";
 import { SecondaryButton } from "@/components/shared/Button";
 
-// Dummy data for research sections
-const researchData = [
-    {
-        id: 1,
-        imageSrc: '/images/dummy-image.jpg', // Image path for the section
-        title: "Request Letters and Records",
-        description: `As a UDST student, you may need certain letters or official documentation related to your student record and financial matters.
-        Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.`,
-    },
-    {
-        id: 2,
-        imageSrc: '/images/dummy-image.jpg', // Replace with other images as needed
-        title: "Transcript Requests",
-        description: `Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.`,
-    },
-    {
-        id: 3,
-        imageSrc: '/images/dummy-image.jpg', // Replace with other images as needed
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-    },
-    {
-        id: 4,
-        imageSrc: '/images/dummy-image.jpg', // Replace with other images as needed
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-    },
-    {
-        id: 5,
-        imageSrc: '/images/dummy-image.jpg', // Replace with other images as needed
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-    },
-];
-
 const handleDetails = () => {
 
 }
 
-const ResearchSection: React.FC = () => {
+const ResearchSection = ({data}: any) => {
     return (
         <div className=" flex flex-wrap justify-center lg:justify-between">
-            {researchData.slice(0, 2).map((research) => {
+            {data.researchData.slice(0, 2).map((research: any) => {
                 const truncatedText = research.description.split(" ").slice(0, 20).join(" ") + "...";
 
                 return (

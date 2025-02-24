@@ -3,42 +3,17 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface Slide {
-    image: string;
-    title: string;
-    description: string;
-}
-
-// Dummy data – in your production code this can be passed as props
-const bannerData: Slide[] = [
-    {
-        image: '/images/slide1.jpg',
-        title: 'Professional Design',
-        description: 'Crafting engaging and modern designs for your portfolio.',
-    },
-    {
-        image: '/images/slide2.jpg',
-        title: 'Responsive Layout',
-        description: 'Built with Tailwind CSS for a fully responsive experience.',
-    },
-    {
-        image: '/images/slide3.jpg',
-        title: 'Smooth Animations',
-        description: 'Enhanced with Framer Motion for seamless slide transitions.',
-    },
-];
-
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
 };
 
-const BannerSection: React.FC = () => {
+const BannerSection = ({ data }: any) => {
     // State: [current page index, direction of swipe]
     const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
 
     // Calculate current slide index dynamically
-    const index = ((page % bannerData.length) + bannerData.length) % bannerData.length;
+    const index = ((page % data.bannerData.length) + data.bannerData.length) % data.bannerData.length;
 
     // Function to change the slide, accepts 1 for next, -1 for previous
     const paginate = (newDirection: number) => {
@@ -98,13 +73,13 @@ const BannerSection: React.FC = () => {
                 >
                     <div
                         className="w-full h-full bg-cover bg-center flex flex-col justify-center items-center bg-gray-900 bg-blend-multiply"
-                        style={{ backgroundImage: `url(${bannerData[index].image})` }}
+                        style={{ backgroundImage: `url(${data.bannerData[index].image})` }}
                     >
                         <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">
-                            {bannerData[index].title}
+                            {data.bannerData[index].title}
                         </h2>
                         <p className="text-xl text-white drop-shadow-md">
-                            {bannerData[index].description}
+                            {data.bannerData[index].description}
                         </p>
                     </div>
                 </motion.div>

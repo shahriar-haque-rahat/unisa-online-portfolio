@@ -2,11 +2,18 @@ import News from '@/components/(pages)/news/News';
 import Header from '@/components/shared/Header';
 import React from 'react';
 
-const page = () => {
+interface DataType {
+    [key: string]: any;
+}
+
+const page = async () => {
+    const res = await fetch('http://localhost:3000/data/data.json', { cache: 'no-store' });
+    const data: DataType = await res.json();
+
     return (
         <div>
             <Header>Latest News</Header>
-            <News/>
+            <News data={data}/>
         </div>
     );
 };

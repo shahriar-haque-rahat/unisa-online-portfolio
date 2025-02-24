@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import Loading from "@/components/shared/Loading";
+import FullScreenLoading from "@/components/shared/Loading/FullScreenLoading";
 
 interface AdminLayoutProps {
     children: React.ReactNode;
@@ -61,7 +61,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     }, [pathname, router]);
 
     if (status === "loading") {
-        return <Loading />;
+        return <FullScreenLoading />;
     }
     // Once redirected, this component will unmount so no need to show unauthorized message.
     if (!session) {

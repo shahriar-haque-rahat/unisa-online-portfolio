@@ -1,10 +1,17 @@
 import Contact from '@/components/(pages)/contact/Contact';
 import React from 'react';
 
-const page = () => {
+interface DataType {
+    [key: string]: any;
+}
+
+const page = async () => {
+    const res = await fetch('http://localhost:3000/data/data.json', { cache: 'no-store' });
+    const data: DataType = await res.json();
+
     return (
         <div>
-            <Contact/>
+            <Contact data={data}/>
         </div>
     );
 };

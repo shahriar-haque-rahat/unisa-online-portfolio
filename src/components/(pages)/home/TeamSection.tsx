@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TeamSection = () => {
+const TeamSection = ({data}: any) => {
     return (
         <div>
             

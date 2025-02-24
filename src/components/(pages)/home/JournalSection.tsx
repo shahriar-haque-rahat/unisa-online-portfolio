@@ -5,51 +5,17 @@ import React from 'react';
 import SectionHeader from './SectionHeader';
 import { useRouter } from 'next/navigation';
 
-// Dummy data for journals
-const journalData = [
-    {
-        id: 1,
-        title: "Request Letters and Records",
-        description: `As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.`,
-        link: "/link",
-    },
-    {
-        id: 2,
-        title: "Transcript Requests",
-        description: `Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.`,
-        link: "/link",
-    },
-    {
-        id: 3,
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-        link: "/link",
-    },
-    {
-        id: 4,
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-        link: "/link",
-    },
-    {
-        id: 5,
-        title: "Name Change Requests",
-        description: `Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.`,
-        link: "/link",
-    },
-];
-
 const handleDetails = () => {
     console.log("Details")
 }
 
-const journalSection: React.FC = () => {
+const JournalSection = ({data}: any) => {
     const router = useRouter();
 
     return (
         <div className="space-y-6">
             <SectionHeader>Journal</SectionHeader>
-            {journalData.slice(0, 2).map((journal) => {
+            {data.journalData.slice(0, 2).map((journal: any) => {
                 const truncatedText = journal.description.split(" ").slice(0, 60).join(" ") + "...";
 
                 return (
@@ -81,4 +47,4 @@ const journalSection: React.FC = () => {
     );
 };
 
-export default journalSection;
+export default JournalSection;

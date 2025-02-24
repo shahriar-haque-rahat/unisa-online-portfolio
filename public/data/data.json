@@ -1,0 +1,359 @@
+{
+    "logo": "/images/logo.jpeg",
+    "contactInfo": [
+        {
+            "label": "Address",
+            "value": "1234 Demo, TX 56789, Australia"
+        },
+        {
+            "label": "Phone",
+            "value": "+61-4-1234 5678",
+            "link": "tel:+61412345678"
+        },
+        {
+            "label": "Email",
+            "value": "abdullahi.chowdhury@gmail.com",
+            "link": "mailto:abdullahi.chowdhury@gmail.com"
+        }
+    ],
+    "socialLinks": [
+        {
+            "name": "Google",
+            "path": "https://scholar.google.com.au/citations?user=JtngVxYAAAAJ&hl=en"
+        },
+        {
+            "name": "LinkedIn",
+            "path": "https://linkedin.com"
+        },
+        {
+            "name": "Facebook",
+            "path": "https://facebook.com"
+        },
+        {
+            "name": "X",
+            "path": "https://x.com"
+        }
+    ],
+    "bannerData": [
+        {
+            "image": "/images/slide1.jpg",
+            "title": "Professional Design",
+            "description": "Crafting engaging and modern designs for your portfolio."
+        },
+        {
+            "image": "/images/slide2.jpg",
+            "title": "Responsive Layout",
+            "description": "Built with Tailwind CSS for a fully responsive experience."
+        },
+        {
+            "image": "/images/slide3.jpg",
+            "title": "Smooth Animations",
+            "description": "Enhanced with Framer Motion for seamless slide transitions."
+        }
+    ],
+    "countersData": [
+        {
+            "id": 1,
+            "title": "Research Publications",
+            "value": 30
+        },
+        {
+            "id": 2,
+            "title": "Citations",
+            "value": 500
+        },
+        {
+            "id": 3,
+            "title": "Research Funding",
+            "value": 17200
+        },
+        {
+            "id": 4,
+            "title": "International Collaborations",
+            "value": 12
+        },
+        {
+            "id": 5,
+            "title": "Best Paper Awards",
+            "value": 4
+        },
+        {
+            "id": 6,
+            "title": "Industry Experience",
+            "value": 10
+        }
+    ],
+    "newsData": [
+        {
+            "id": 1,
+            "title": "Exciting New Initiative Launched",
+            "author": "Jane Doe",
+            "timestamp": "2025-02-24 09:15 AM",
+            "content": "We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!",
+            "imageSrc": [
+                "/images/dummy-image-2.png"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Campus Update: New Facilities",
+            "author": "John Smith",
+            "timestamp": "2025-02-23 03:30 PM",
+            "content": "Our campus is growing! We have recently opened new state-of-the-art facilities that provide students with the resources needed to excel academically.",
+            "imageSrc": [
+                "/images/dummy-image.jpg",
+                "/images/dummy-image.jpg"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Research Breakthrough in Renewable Energy",
+            "author": "Alice Johnson",
+            "timestamp": "2025-02-22 11:00 AM",
+            "content": "Our research team has made a significant breakthrough in renewable energy technology. This innovation could pave the way for more sustainable energy solutions worldwide.",
+            "imageSrc": [
+                "/images/dummy-image-2.png",
+                "/images/dummy-image.jpg",
+                "/images/dummy-image.jpg"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Scholarship Opportunities for 2025",
+            "author": "Michael Brown",
+            "timestamp": "2025-02-21 08:45 AM",
+            "content": "Several new scholarship opportunities have been announced for the upcoming academic year. Check out our website for application details and deadlines.",
+            "imageSrc": []
+        }
+    ],
+    "projectData": [
+        {
+            "id": 1,
+            "title": "Academic Awards",
+            "description": "UDST offers opportunities to students to receive a number of academic awards. The academic awards do not require an application and are determined based on academic performance in terms of students’ weighted averages. Some academic awards are determined based on academic performance coupled with other specific criteria such as contribution to university life, faculty recommendation, etc. Full information about academic awards is available at the Admissions & Registration Directorate.",
+            "buttonLabel": "READ MORE",
+            "imageSrc": "/images/dummy-image.jpg",
+            "handleDetailsClick": "() => console.log('Details button clicked for Academic Awards')"
+        },
+        {
+            "id": 2,
+            "title": "Research Opportunities",
+            "description": "UDST provides various research opportunities for students across multiple disciplines. These opportunities help students develop critical research skills and contribute to academic progress. Full details about research programs are available through the Research and Development Office.",
+            "buttonLabel": "READ MORE",
+            "imageSrc": "/images/dummy-image.jpg",
+            "handleDetailsClick": "() => console.log('Details button clicked for Research Opportunities')"
+        },
+        {
+            "id": 3,
+            "title": "Scholarship Programs",
+            "description": "UDST offers multiple scholarship programs for deserving students. These programs are designed to reward academic excellence and to support students in financial need. Learn more about how you can apply for a scholarship today.",
+            "imageSrc": "/images/dummy-image.jpg"
+        },
+        {
+            "id": 4,
+            "title": "Student Exchange",
+            "description": "UDST has partnerships with universities around the world, providing students with opportunities for exchange programs. Broaden your horizons by studying abroad while earning credits towards your UDST degree.",
+            "imageSrc": "/images/dummy-image.jpg"
+        },
+        {
+            "id": 5,
+            "title": "Internship Programs",
+            "description": "UDST partners with leading companies in various industries to provide internship opportunities. Gain real-world experience and boost your resume before graduation.",
+            "imageSrc": "/images/dummy-image.jpg"
+        },
+        {
+            "id": 6,
+            "title": "Online Learning",
+            "description": "UDST provides flexible online learning options for students who need to balance work, family, or other commitments. Access a range of courses and resources from anywhere in the world.",
+            "imageSrc": "/images/dummy-image.jpg"
+        }
+    ],
+    "journalData": [
+        {
+            "id": 1,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Request Letters and Records",
+            "authors": "Andrew Balch, Maria A, Cardei, Afsaneh Doryab",
+            "publicationDate": "17 Oct 2024",
+            "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
+            "link": "/link"
+        },
+        {
+            "id": 2,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Transcript Requests",
+            "authors": "Jason Donald Chin, Matthew Clark, Afsaneh Doryab",
+            "publicationDate": "20 Feb 2024",
+            "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+            "link": "/link"
+        },
+        {
+            "id": 3,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Name Change Requests",
+            "authors": "John Doe, Jane Smith",
+            "publicationDate": "10 Mar 2024",
+            "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+            "link": "/link"
+        },
+        {
+            "id": 4,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Additional Records Requests",
+            "authors": "Chris Evans, Morgan Lee",
+            "publicationDate": "05 Apr 2024",
+            "description": "Find out how to request other official documents to maintain your records accurately, including forms for various administrative needs.",
+            "link": "/link"
+        },
+        {
+            "id": 5,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Graduation Letters",
+            "authors": "Sarah Connor, Kyle Reese",
+            "publicationDate": "01 May 2024",
+            "description": "Graduation letters serve as proof of completing all necessary credits. Learn how to request them and ensure your academic journey is well documented.",
+            "link": "/link"
+        }
+    ],
+    "conferenceData": [
+        {
+            "id": 1,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Request Letters and Records - Conference Edition",
+            "authors": "Alice Brown, Bob White",
+            "publicationDate": "17 Oct 2023",
+            "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Keep your records accurate and up-to-date.",
+            "link": "/link"
+        },
+        {
+            "id": 2,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Transcript Requests - Seminar",
+            "authors": "Dr. Transcript, Ms. Request",
+            "publicationDate": "20 Nov 2023",
+            "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+            "link": "/link"
+        },
+        {
+            "id": 3,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Name Change Requests - Workshop",
+            "authors": "John Appleseed, Lucy Orman",
+            "publicationDate": "10 Dec 2023",
+            "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+            "link": "/link"
+        }
+    ],
+    "researchData": [
+        {
+            "id": 1,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Request Letters and Records",
+            "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
+            "publicationName": "Journal of University Services",
+            "publicationDate": "January 15, 2023"
+        },
+        {
+            "id": 2,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Transcript Requests",
+            "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+            "publicationName": "Transcript Studies Quarterly",
+            "publicationDate": "February 20, 2023"
+        },
+        {
+            "id": 3,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Name Change Requests",
+            "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+            "publicationName": "Research Digest",
+            "publicationDate": "March 10, 2023"
+        },
+        {
+            "id": 4,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Name Change Requests",
+            "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+            "publicationName": "Academic Record Review",
+            "publicationDate": "April 05, 2023"
+        },
+        {
+            "id": 5,
+            "imageSrc": "/images/dummy-image.jpg",
+            "title": "Name Change Requests",
+            "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+            "publicationName": "Name Change & Identity",
+            "publicationDate": "May 01, 2023"
+        }
+    ],
+    "teamData": [
+        {
+            "category": "Primary Investigator",
+            "members": [
+                {
+                    "name": "Afsaneh Doryab",
+                    "university": "University of Virginia",
+                    "role": "Principal Investigator",
+                    "image": "/path/to/afsaneh.jpg"
+                }
+            ]
+        },
+        {
+            "category": "PhD Students",
+            "members": [
+                {
+                    "name": "Maria Cardei",
+                    "university": "University of Virginia",
+                    "role": "PhD Student",
+                    "image": "/path/to/maria.jpg"
+                },
+                {
+                    "name": "Matt Clark",
+                    "university": "University of Virginia",
+                    "role": "PhD Student",
+                    "image": "/path/to/matt_clark.jpg"
+                },
+                {
+                    "name": "Matt Landers",
+                    "university": "University of Virginia",
+                    "role": "PhD Student",
+                    "image": "/path/to/matt_landers.jpg"
+                }
+            ]
+        },
+        {
+            "category": "Master's Students",
+            "members": [
+                {
+                    "name": "Ji Hyun Kim",
+                    "university": "University of Virginia",
+                    "role": "Masters Student",
+                    "image": "/path/to/ji_hyun_kim.jpg"
+                }
+            ]
+        },
+        {
+            "category": "Undergraduate Students",
+            "members": [
+                {
+                    "name": "Andrew Balch",
+                    "university": "University of Virginia",
+                    "role": "Undergraduate Student",
+                    "image": "/path/to/andrew_balch.jpg"
+                },
+                {
+                    "name": "Armaan Chakrabarti",
+                    "university": "University of Virginia",
+                    "role": "Undergraduate Student",
+                    "image": "/path/to/armaan_chakrabarti.jpg"
+                },
+                {
+                    "name": "Chong Zhao",
+                    "university": "Grinnell College",
+                    "role": "Undergraduate Student",
+                    "image": "/path/to/chong_zhao.jpg"
+                }
+            ]
+        }
+    ]
+}
