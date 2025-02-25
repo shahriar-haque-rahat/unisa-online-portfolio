@@ -1,128 +1,114 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import { usePathname, useRouter } from "next/navigation";
 import FullScreenLoading from "@/components/shared/Loading/FullScreenLoading";
 
+import BannerDataForm from "@/components/(admin)/admin/BannerDataForm";
+import ContactInfoForm from "@/components/(admin)/admin/ContactInfoForm";
+import SocialLinksForm from "@/components/(admin)/admin/SocialLinksForm";
+import TeamDataForm from "@/components/(admin)/admin/TeamDataForm";
+import ProjectDataForm from "@/components/(admin)/admin/ProjectDataForm";
+import NewsDataForm from "@/components/(admin)/admin/NewsDataForm";
+import JournalDataForm from "@/components/(admin)/admin/JournalDataForm";
+import ConferenceDataForm from "@/components/(admin)/admin/ConferenceDataForm";
+import ResearchDataForm from "@/components/(admin)/admin/ResearchDataForm";
+
 interface AdminLayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
-const adminRoutes = [
-    { label: "Banner", route: "/admin/banner" },
-    { label: "About", route: "/admin/about" },
-    { label: "Blog", route: "/admin/blog" },
-    { label: "Contact", route: "/admin/contact" },
-    { label: "Data Collection and Analysis", route: "/admin/data-collection-and-analysis" },
-    { label: "Education", route: "/admin/education" },
-    { label: "Project", route: "/admin/project" },
-    { label: "Publication", route: "/admin/publication" },
-    { label: "Reference", route: "/admin/reference" },
-    { label: "Research Experience", route: "/admin/research-experience" },
-    { label: "Technical Skill", route: "/admin/technical-skill" },
+// Define your admin tabs along with their corresponding component.
+const adminTabs = [
+    { label: "Banner", key: "banner", component: <BannerDataForm /> },
+    { label: "Contact Info", key: "contact", component: <ContactInfoForm /> },
+    { label: "Social Links", key: "social", component: <SocialLinksForm /> },
+    { label: "Team", key: "team", component: <TeamDataForm /> },
+    { label: "Projects", key: "projects", component: <ProjectDataForm /> },
+    { label: "News", key: "news", component: <NewsDataForm /> },
+    { label: "Journals", key: "journals", component: <JournalDataForm /> },
+    { label: "Conferences", key: "conferences", component: <ConferenceDataForm /> },
+    { label: "Research", key: "research", component: <ResearchDataForm /> },
 ];
 
-// Animation variants
-const headerVariants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const navbarVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.5 } },
-};
-
-const mainVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.5, duration: 0.8 } },
-};
-
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+const AdminLayout: React.FC<AdminLayoutProps> = () => {
     const { data: session, status } = useSession();
-    const pathname = usePathname();
-    const router = useRouter();
+    const [currentTab, setCurrentTab] = useState("banner");
 
     // Redirect to /login if not authenticated.
     useEffect(() => {
         if (!session && status !== "loading") {
-            router.push("/login");
+            // Use router.push("/login") if needed. Here we simply return null.
         }
-    }, [session, status, router]);
-
-    // Redirect from /admin to /admin/banner if no specific route is provided.
-    useEffect(() => {
-        if (pathname === "/admin") {
-            router.push("/admin/banner");
-        }
-    }, [pathname, router]);
+    }, [session, status]);
 
     if (status === "loading") {
         return <FullScreenLoading />;
     }
-    // Once redirected, this component will unmount so no need to show unauthorized message.
     if (!session) {
         return null;
     }
 
+    // Find the active tab component.
+    const activeTab = adminTabs.find((tab) => tab.key === currentTab);
+
     return (
-        <div className="min-h-screen mt-24 bg-gray-50">
-            {/* Primary Header */}
-            <motion.header
-                variants={headerVariants}
-                initial="hidden"
-                animate="visible"
-                className="bg-white shadow-md border-b border-gray-200"
-            >
-                <div className="w-full mx-auto px-6 py-4 flex justify-between items-center">
-                    <h2 className="text-2xl font-bold text-gray-800">Admin Panel</h2>
-                    <button
-                        onClick={() => signOut()}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition"
-                    >
-                        Logout
-                    </button>
+        <div className="min-h-screen flex bg-gray-100">
+            {/* Sidebar */}
+            <aside className="w-64 bg-white shadow-md border-r border-gray-200">
+                <div className="p-6">
+                    <h2 className="text-2xl font-bold text-primary">Admin Dashboard</h2>
                 </div>
-            </motion.header>
-
-            {/* Secondary Navbar */}
-            <motion.nav
-                variants={navbarVariants}
-                initial="hidden"
-                animate="visible"
-                className="bg-gray-100 shadow-inner border-b border-gray-200"
-            >
-                <div className="w-full mx-auto px-6 py-3 flex space-x-4 overflow-x-auto">
-                    {adminRoutes.map((item) => {
-                        const isActive = pathname === item.route;
-                        return (
-                            <Link
-                                key={item.route}
-                                href={item.route}
-                                className={`px-4 py-2 rounded-md whitespace-nowrap transition ${isActive
-                                    ? "bg-primary text-white shadow"
-                                    : "bg-white text-gray-700 hover:bg-primary"
+                <nav className="mt-6">
+                    <ul>
+                        {adminTabs.map((tab) => (
+                            <li
+                                key={tab.key}
+                                className={`px-6 py-2 cursor-pointer hover:bg-sky-200 ${currentTab === tab.key ? "font-bold text-primary" : "text-gray-700"
                                     }`}
+                                onClick={() => setCurrentTab(tab.key)}
                             >
-                                {item.label}
-                            </Link>
-                        );
-                    })}
-                </div>
-            </motion.nav>
+                                {tab.label}
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </aside>
 
-            {/* Main Content Area */}
-            <motion.main
-                variants={mainVariants}
-                initial="hidden"
-                animate="visible"
-                className="w-full mx-auto px-6 py-8"
-            >
-                {children}
-            </motion.main>
+            {/* Main Content */}
+            <main className="flex-1 p-8">
+                {/* Top header */}
+                <header className="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold text-primary">
+                            {activeTab ? activeTab.label : "Dashboard"}
+                        </h1>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <span className="text-gray-700">
+                            {session.user?.name ? `Hello, ${session.user.name}` : "Admin"}
+                        </span>
+                        <button
+                            onClick={() => signOut({ callbackUrl: "/login" })}
+                            className="px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition"
+                        >
+                            Sign Out
+                        </button>
+                    </div>
+                </header>
+
+                {/* Tab content area with animation */}
+                <motion.div
+                    key={currentTab} // Ensure animation when switching tabs
+                    className="bg-white rounded-md shadow p-6"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {activeTab && activeTab.component}
+                </motion.div>
+            </main>
         </div>
     );
 };
