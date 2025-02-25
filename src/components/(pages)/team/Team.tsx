@@ -20,7 +20,7 @@ const Team = ({ data }: any) => {
                                     className="flex flex-col min-w-60 items-center text-center bg-white p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
                                 >
                                     <Image
-                                        src={member.image}
+                                        src={member.image || ''}
                                         alt={member.name}
                                         width={128}
                                         height={128}

@@ -1,9 +1,9 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import JsonEditor from "./tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
 const SocialLinksForm = () => {
   const [socialLinks, setSocialLinks] = useState([]);
@@ -25,7 +25,7 @@ const SocialLinksForm = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -47,12 +47,12 @@ const SocialLinksForm = () => {
     }
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({ name: item.name, path: item.path });
     setEditingId(item.id);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this social link?")) return;
     try {
       await JsonEditor.delete("socialLinks", id);
@@ -74,27 +74,28 @@ const SocialLinksForm = () => {
       <p className="text-gray-500 mb-6">Manage your social media or external links here.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Path (URL)"
-          value={formData.path}
-          onChange={(e) => setFormData({ ...formData, path: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
-        />
-
+        <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Path (URL)"
+            value={formData.path}
+            onChange={(e) => setFormData({ ...formData, path: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+        </section>
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
           {editingId ? "Update Social Link" : "Add Social Link"}
         </button>
@@ -109,22 +110,22 @@ const SocialLinksForm = () => {
           </tr>
         </thead>
         <tbody>
-          {socialLinks.map((item) => (
+          {socialLinks.map((item: any) => (
             <tr key={item.id} className="text-center">
               <td className="border p-2">{item.name}</td>
               <td className="border p-2">{item.path}</td>
-              <td className="border p-2 space-x-2">
+              <td className="border p-2 space-x-2 w-28">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-2 py-1 text-primary rounded hover:text-secondary"
                 >
-                  Edit
+                  <MdEditSquare size={22}/>
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
                 >
-                  Delete
+                  <MdDeleteForever size={24}/>
                 </button>
               </td>
             </tr>

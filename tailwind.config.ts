@@ -11,7 +11,8 @@ const config: Config = {
       colors: {
         primary: "var(--primary)",
         secondary: "var(--secondary)",
-        cancel: "var(--cancel)",
+        cancelPrimary: "var(--cancelPrimary)",
+        cancelSecondary: "var(--cancelSecondary)",
       },
     },
   },

@@ -4,8 +4,9 @@
 
 :root {
     --primary: #3c87ff;
-    --secondary: #81b1ff;
-    --cancel: #FF4545;
+    --secondary: #106afc;
+    --cancelPrimary: #FF4545;
+    --cancelSecondary: #fc1818;
 }
 
 /* Custom Scrollbar Styling */

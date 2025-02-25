@@ -72,7 +72,7 @@ const BannerSection = ({ data }: any) => {
                     className="absolute w-full h-full"
                 >
                     <div
-                        className="w-full h-full bg-cover bg-center flex flex-col justify-center items-center bg-gray-900 bg-blend-multiply"
+                        className="w-full h-full bg-cover bg-center flex flex-col justify-center items-center bg-gray-50 bg-blend-multiply"
                         style={{ backgroundImage: `url(${data.bannerData[index].image})` }}
                     >
                         <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">

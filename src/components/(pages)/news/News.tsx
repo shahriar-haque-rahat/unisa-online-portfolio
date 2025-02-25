@@ -49,7 +49,7 @@ const News = ({ data }: any) => {
                                             <div className="w-2/6">
                                                 <div className="aspect-square">
                                                     <img
-                                                        src={post.imageSrc[0]}
+                                                        src={post.imageSrc[0] || ''}
                                                         alt={`${post.title} image 1`}
                                                         className="w-full h-full object-cover"
                                                     />

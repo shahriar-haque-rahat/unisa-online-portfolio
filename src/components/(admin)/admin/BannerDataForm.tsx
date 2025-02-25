@@ -1,17 +1,27 @@
 "use client";
-
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import JsonEditor from "./tools/JsonEditor";
 import ImageUploader from "./tools/ImageUploader";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+
+type BannerFormData = {
+  image: string | File | null;
+  title: string;
+  description: string;
+};
 
 const BannerDataForm = () => {
-  const [banners, setBanners] = useState([]);
-  const [formData, setFormData] = useState({ image: null, title: "", description: "" });
-  const [editingId, setEditingId] = useState(null);
+  const [banners, setBanners] = useState<any[]>([]);
+  const [formData, setFormData] = useState<BannerFormData>({
+    image: null,
+    title: "",
+    description: "",
+  });
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const uploaderRef = useRef(null);
+  const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
 
   const fetchData = async () => {
     try {
@@ -27,17 +37,35 @@ const BannerDataForm = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log("Submitting form. Current formData:", formData);
 
-    try {
-      let imageUrl = formData.image;
-      if (formData.image && formData.image instanceof File) {
-        imageUrl = await uploaderRef.current.uploadImage();
+    // Get the existing image URL if formData.image is already a string
+    let imageUrl: string | null = typeof formData.image === "string" ? formData.image : null;
+
+    // Always call the uploader to attempt to upload a new file.
+    if (uploaderRef.current) {
+      try {
+        const newImageUrl = await uploaderRef.current.uploadImage();
+        if (newImageUrl) {
+          imageUrl = newImageUrl;
+          console.log("Uploader returned URL:", imageUrl);
+        } else {
+          console.log("Uploader did not return a new URL; using existing image URL:", imageUrl);
+        }
+      } catch (err) {
+        console.error("Image upload failed:", err);
+        toast.error("Image upload failed. Please try again.");
+        setLoading(false);
+        return; // Halt submission if image upload fails
       }
+    }
 
-      const dataToSubmit = { ...formData, image: imageUrl };
+    const dataToSubmit = { ...formData, image: imageUrl };
+    console.log(editingId ? "Editing banner with id:" + editingId : "Adding new banner with data:", dataToSubmit);
+    try {
       if (editingId) {
         await JsonEditor.edit("bannerData", editingId, dataToSubmit);
         toast.success("Banner updated successfully!");
@@ -46,7 +74,6 @@ const BannerDataForm = () => {
         await JsonEditor.add("bannerData", dataToSubmit);
         toast.success("Banner added successfully!");
       }
-
       setFormData({ image: null, title: "", description: "" });
       fetchData();
     } catch (error) {
@@ -57,14 +84,16 @@ const BannerDataForm = () => {
     }
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
+    console.log("Editing item:", item);
     setFormData({ image: item.image, title: item.title, description: item.description });
     setEditingId(item.id);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this banner?")) return;
     try {
+      console.log("Deleting banner with id:", id);
       await JsonEditor.delete("bannerData", id);
       toast.success("Banner deleted successfully!");
       fetchData();
@@ -99,7 +128,10 @@ const BannerDataForm = () => {
             )}
             <ImageUploader
               ref={uploaderRef}
-              onUpload={(file) => setFormData({ ...formData, image: file })}
+              onUpload={(url) => {
+                console.log("ImageUploader onUpload called with url:", url);
+                setFormData({ ...formData, image: url });
+              }}
             />
           </div>
         </div>
@@ -132,7 +164,7 @@ const BannerDataForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
           {editingId ? "Update Banner" : "Add Banner"}
         </button>
@@ -149,9 +181,9 @@ const BannerDataForm = () => {
           </tr>
         </thead>
         <tbody>
-          {banners.map((item) => (
+          {banners.map((item: any) => (
             <tr key={item.id || Math.random()} className="text-center">
-              <td className="border p-2">
+              <td className="border p-2 w-28">
                 {item.image && (
                   <img
                     src={item.image}
@@ -162,18 +194,18 @@ const BannerDataForm = () => {
               </td>
               <td className="border p-2">{item.title}</td>
               <td className="border p-2">{item.description}</td>
-              <td className="border p-2 space-x-2">
+              <td className="border p-2 space-x-2 w-28">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-2 py-1 text-primary rounded hover:text-secondary"
                 >
-                  Edit
+                  <MdEditSquare size={22} />
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
                 >
-                  Delete
+                  <MdDeleteForever size={24} />
                 </button>
               </td>
             </tr>

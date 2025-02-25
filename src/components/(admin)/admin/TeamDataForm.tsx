@@ -1,37 +1,37 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import JsonEditor from "./tools/JsonEditor";
+import ImageUploader from "./tools/ImageUploader";
 import { motion } from "framer-motion";
-import axios from "axios";
 import { toast } from "react-hot-toast";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+
+// Define a type for a team member.
+type TeamMember = {
+  name: string;
+  university: string;
+  role: string;
+  image: string | File | null;
+};
+
+// Define a type for the team form data.
+type TeamFormData = {
+  category: string;
+  members: TeamMember[];
+};
 
 const TeamDataForm = () => {
-  const [teamData, setTeamData] = useState([]);
-  const [formData, setFormData] = useState({
+  const [teamData, setTeamData] = useState<any[]>([]);
+  const [formData, setFormData] = useState<TeamFormData>({
     category: "",
     members: [{ name: "", university: "", role: "", image: null }],
   });
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Helper function to upload a file
-  const uploadFile = async (file) => {
-    const formDataUpload = new FormData();
-    formDataUpload.append("file", file);
-    try {
-      const res = await axios.post("/api/upload", formDataUpload, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      return res.data.imageUrl;
-    } catch (error) {
-      console.error("File upload error:", error);
-      toast.error("Failed to upload image.");
-      return null;
-    }
-  };
+  // Refs for each member's ImageUploader.
+  const uploaderRefs = useRef<Array<React.RefObject<{ uploadImage: () => Promise<string | null> }>>>([]);
 
-  // Fetch existing team data
   const fetchData = async () => {
     try {
       const data = await JsonEditor.getAll("teamData");
@@ -46,14 +46,13 @@ const TeamDataForm = () => {
     fetchData();
   }, []);
 
-  // Handle changes for each member
-  const handleMemberChange = (index, field, value) => {
+  // Restrict field to keys of TeamMember.
+  const handleMemberChange = (index: number, field: keyof TeamMember, value: any) => {
     const newMembers = [...formData.members];
     newMembers[index][field] = value;
     setFormData({ ...formData, members: newMembers });
   };
 
-  // Add a new blank member
   const addMemberField = () => {
     setFormData({
       ...formData,
@@ -61,49 +60,54 @@ const TeamDataForm = () => {
     });
   };
 
-  // Remove a specific member by index
-  const removeMemberField = (index) => {
+  const removeMemberField = (index: number) => {
     const newMembers = formData.members.filter((_, i) => i !== index);
     setFormData({ ...formData, members: newMembers });
+    uploaderRefs.current.splice(index, 1);
   };
 
-  // Submit entire form
-  //  - Upload each member's image if it's a File
-  //  - Then save data via JsonEditor
-  const handleSubmit = async (e) => {
+  // For each member, call its uploader (if available) to get the URL before submission.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      // For each member, if image is a File, upload it
       const updatedMembers = await Promise.all(
-        formData.members.map(async (member) => {
-          if (member.image && member.image instanceof File) {
-            const uploadedUrl = await uploadFile(member.image);
-            return { ...member, image: uploadedUrl };
+        formData.members.map(async (member, index) => {
+          let imageUrl = typeof member.image === "string" ? member.image : null;
+          const uploaderRef = uploaderRefs.current[index];
+          if (uploaderRef && uploaderRef.current) {
+            try {
+              const newUrl = await uploaderRef.current.uploadImage();
+              if (newUrl) {
+                imageUrl = newUrl;
+                console.log(`Uploader for member ${index} returned new URL:`, newUrl);
+              } else {
+                console.log(`Uploader for member ${index} did not return a new URL; using existing:`, imageUrl);
+              }
+            } catch (err) {
+              toast.error(`Image upload failed for member ${index + 1}`);
+            }
           }
-          return member;
+          return { ...member, image: imageUrl };
         })
       );
 
-      const dataToSubmit = { ...formData, members: updatedMembers };
+      const dataToSubmit: TeamFormData = { ...formData, members: updatedMembers };
 
       if (editingId) {
-        // Edit existing entry
         await JsonEditor.edit("teamData", editingId, dataToSubmit);
         toast.success("Team data updated successfully!");
         setEditingId(null);
       } else {
-        // Add new entry
         await JsonEditor.add("teamData", dataToSubmit);
         toast.success("Team data added successfully!");
       }
 
-      // Reset form
       setFormData({
         category: "",
         members: [{ name: "", university: "", role: "", image: null }],
       });
+      uploaderRefs.current = [];
       fetchData();
     } catch (error) {
       console.error("Error saving team data:", error);
@@ -113,14 +117,14 @@ const TeamDataForm = () => {
     }
   };
 
-  // Load existing entry into form for editing
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData(item);
     setEditingId(item.id);
+    // Initialize uploaderRefs for each member in the item.
+    uploaderRefs.current = item.members.map(() => createRef());
   };
 
-  // Delete entire team category
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this team category?")) return;
     try {
       await JsonEditor.delete("teamData", id);
@@ -158,71 +162,61 @@ const TeamDataForm = () => {
 
         <div>
           <h3 className="text-lg font-semibold text-gray-700 mb-3">Members</h3>
-          {formData.members.map((member, index) => (
-            <div key={index} className="border p-4 rounded-lg mb-3">
-              {/* Name */}
-              <label className="block font-medium text-gray-700 mb-1">Name</label>
-              <input
-                type="text"
-                placeholder="Member Name"
-                value={member.name}
-                onChange={(e) => handleMemberChange(index, "name", e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
-                required
-              />
-
-              {/* University */}
-              <label className="block font-medium text-gray-700 mb-1">University</label>
-              <input
-                type="text"
-                placeholder="Member University"
-                value={member.university}
-                onChange={(e) => handleMemberChange(index, "university", e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
-                required
-              />
-
-              {/* Role */}
-              <label className="block font-medium text-gray-700 mb-1">Role</label>
-              <input
-                type="text"
-                placeholder="e.g., PhD Student"
-                value={member.role}
-                onChange={(e) => handleMemberChange(index, "role", e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
-                required
-              />
-
-              {/* Image (File input) */}
-              <label className="block font-medium text-gray-700 mb-1">Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    handleMemberChange(index, "image", e.target.files[0]);
-                  }
-                }}
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-              {/* Preview existing or newly uploaded image */}
-              {member.image && typeof member.image === "string" && (
-                <img
-                  src={member.image}
-                  alt="Member"
-                  className="w-16 h-16 mt-3 object-cover rounded border"
+          {formData.members.map((member, index) => {
+            if (!uploaderRefs.current[index]) {
+              uploaderRefs.current[index] = createRef();
+            }
+            return (
+              <div key={index} className="border p-4 rounded-lg mb-3">
+                <label className="block font-medium text-gray-700 mb-1">Name</label>
+                <input
+                  type="text"
+                  placeholder="Member Name"
+                  value={member.name}
+                  onChange={(e) => handleMemberChange(index, "name", e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
+                  required
                 />
-              )}
 
-              <button
-                type="button"
-                onClick={() => removeMemberField(index)}
-                className="mt-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
-              >
-                Remove Member
-              </button>
-            </div>
-          ))}
+                <label className="block font-medium text-gray-700 mb-1">University</label>
+                <input
+                  type="text"
+                  placeholder="Member University"
+                  value={member.university}
+                  onChange={(e) => handleMemberChange(index, "university", e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
+                  required
+                />
+
+                <label className="block font-medium text-gray-700 mb-1">Role</label>
+                <input
+                  type="text"
+                  placeholder="e.g., PhD Student"
+                  value={member.role}
+                  onChange={(e) => handleMemberChange(index, "role", e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 mb-3"
+                  required
+                />
+
+                <label className="block font-medium text-gray-700 mb-1">Image</label>
+                <ImageUploader
+                  ref={uploaderRefs.current[index]}
+                  onUpload={(url) => handleMemberChange(index, "image", url)}
+                />
+                {member.image && typeof member.image === "string" && (
+                  <img src={member.image} alt="Member" className="w-16 h-16 mt-3 object-cover rounded border" />
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => removeMemberField(index)}
+                  className="mt-4 px-3 py-1 bg-cancelPrimary text-white rounded hover:bg-cancelSecondary transition"
+                >
+                  Remove Member
+                </button>
+              </div>
+            );
+          })}
 
           <button
             type="button"
@@ -236,7 +230,7 @@ const TeamDataForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
           {editingId ? "Update Team Data" : "Add Team Data"}
         </button>
@@ -251,28 +245,28 @@ const TeamDataForm = () => {
           </tr>
         </thead>
         <tbody>
-          {teamData.map((item, idx) => (
+          {teamData.map((item: any, idx: number) => (
             <tr key={item.id || idx} className="text-center">
               <td className="border p-2">{item.category}</td>
               <td className="border p-2">
-                {item.members?.map((m, i) => (
+                {item.members?.map((m: any, i: number) => (
                   <div key={i} className="my-1">
                     <strong>{m.name}</strong> - {m.role}
                   </div>
                 ))}
               </td>
-              <td className="border p-2 space-x-2">
+              <td className="border p-2 space-x-2 w-28">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-2 py-1 text-primary rounded hover:text-secondary"
                 >
-                  Edit
+                  <MdEditSquare size={22} />
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
                 >
-                  Delete
+                  <MdDeleteForever size={24} />
                 </button>
               </td>
             </tr>

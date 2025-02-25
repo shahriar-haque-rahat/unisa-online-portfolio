@@ -27,7 +27,7 @@ const Project = ({ data }: any) => {
                                 <div className="relative overflow-hidden h-64 w-full group shadow-md" >
                                     {/* Background image */}
                                     <img
-                                        src={research.imageSrc}
+                                        src={research.imageSrc || ''}
                                         alt={research.title}
                                         className="absolute inset-0 w-full h-full object-cover"
                                     />

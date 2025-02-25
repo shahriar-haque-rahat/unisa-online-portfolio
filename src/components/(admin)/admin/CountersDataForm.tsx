@@ -1,9 +1,9 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import JsonEditor from "./tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
 const CountersDataForm = () => {
   const [counters, setCounters] = useState([]);
@@ -25,7 +25,7 @@ const CountersDataForm = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -47,12 +47,12 @@ const CountersDataForm = () => {
     }
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({ title: item.title, value: item.value });
     setEditingId(item.id);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this counter?")) return;
     try {
       await JsonEditor.delete("countersData", id);
@@ -89,7 +89,7 @@ const CountersDataForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
           {editingId ? "Update Counter" : "Add Counter"}
         </button>
@@ -104,22 +104,22 @@ const CountersDataForm = () => {
           </tr>
         </thead>
         <tbody>
-          {counters.map((item) => (
+          {counters.map((item: any) => (
             <tr key={item.id} className="text-center">
               <td className="border p-2">{item.title}</td>
               <td className="border p-2">{item.value}</td>
-              <td className="border p-2 space-x-2">
+              <td className="border p-2 space-x-2 w-28">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-2 py-1 text-primary rounded hover:text-secondary"
                 >
-                  Edit
+                  <MdEditSquare size={22}/>
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
                 >
-                  Delete
+                  <MdDeleteForever size={24}/>
                 </button>
               </td>
             </tr>

@@ -82,7 +82,7 @@ const Publication = ({ data }: any) => {
                                         {/* Left image */}
                                         <div className="sm:w-1/4 w-full h-40 sm:h-auto flex-shrink-0">
                                             <img
-                                                src={item.imageSrc}
+                                                src={item.imageSrc || ''}
                                                 alt={item.title}
                                                 className="w-full h-full object-cover"
                                             />

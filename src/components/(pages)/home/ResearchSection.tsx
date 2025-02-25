@@ -17,7 +17,7 @@ const ResearchSection = ({data}: any) => {
                     <div key={research.id} className=" relative">
                         {/* Image Section */}
                         <img
-                            src={research.imageSrc}
+                            src={research.imageSrc || ''}
                             alt={research.title}
                             className="md:w-[calc(100%-40px)] h-[400px] xl:h-[500px] md:m-10 object-cover object-center"
                         />

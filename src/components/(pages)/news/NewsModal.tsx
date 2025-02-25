@@ -101,7 +101,7 @@ const NewsModal: React.FC<NewsModalProps> = ({ post, onClose }) => {
                                     style={{ height: '400px' }}
                                 >
                                     <img
-                                        src={src}
+                                        src={src || ''}
                                         alt={`${post.title} image ${index + 1}`}
                                         className="object-contain"
                                         style={{ maxWidth: '100%', maxHeight: '100%' }}

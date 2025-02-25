@@ -1,19 +1,23 @@
 {
   "logo": {
-    "image": "/images/logo.jpeg",
+    "image": "/uploads/1740520569445-unnamed.png",
     "content": "logo"
   },
   "contactInfo": [
     {
+      "id": "1740511991100525",
       "label": "Address",
-      "value": "1234 Demo, TX 56789, Australia"
+      "value": "1234 Demo, TX 56789, Australia",
+      "link": ""
     },
     {
+      "id": "1740511993504156",
       "label": "Phone",
       "value": "+61-4-1234 5678",
       "link": "tel:+61412345678"
     },
     {
+      "id": "1740511996449343",
       "label": "Email",
       "value": "abdullahi.chowdhury@gmail.com",
       "link": "mailto:abdullahi.chowdhury@gmail.com"
@@ -21,73 +25,50 @@
   ],
   "socialLinks": [
     {
+      "id": "1740512004269972",
       "name": "Google",
       "path": "https://scholar.google.com.au/citations?user=JtngVxYAAAAJ&hl=en"
     },
     {
+      "id": "1740512006324515",
       "name": "LinkedIn",
       "path": "https://linkedin.com"
     },
     {
+      "id": "1740512007963929",
       "name": "Facebook",
       "path": "https://facebook.com"
     },
     {
+      "id": "1740512010165324",
       "name": "X",
       "path": "https://x.com"
     }
   ],
   "bannerData": [
     {
-      "image": "/images/slide1.jpg",
+      "id": "1740511938658106",
+      "image": "/uploads/1740521593291-logo.jpeg",
       "title": "Professional Design",
       "description": "Crafting engaging and modern designs for your portfolio."
     },
     {
-      "image": "/images/slide2.jpg",
+      "id": "1740511969044283",
+      "image": "/uploads/1740521604467-Untitled-design-48-300x300.png",
       "title": "Responsive Layout",
       "description": "Built with Tailwind CSS for a fully responsive experience."
     },
     {
-      "image": "/images/slide3.jpg",
+      "id": "1740511971855297",
+      "image": "/uploads/1740521614915-Untitled-design-51-1-300x300.png",
       "title": "Smooth Animations",
       "description": "Enhanced with Framer Motion for seamless slide transitions."
     },
     {
-      "id": "1740486530030145",
-      "image": null,
-      "title": "a",
-      "description": "a"
-    },
-    {
-      "id": "1740487178867110",
-      "image": null,
-      "title": "b",
-      "description": "b"
-    },
-    {
-      "id": "1740487226198740",
-      "image": null,
-      "title": "c",
-      "description": "c"
-    },
-    {
-      "id": "1740488532655649",
-      "image": null,
-      "title": "a",
-      "description": "a"
-    },
-    {
-      "id": "1740489385873297",
-      "image": null,
-      "title": "a",
-      "description": "a"
-    },
-    {
-      "id": "1740489492586535",
-      "image": "/images/slide1.jpg",
-      "title": "Professional Designaaa",
-      "description": "Crafting engaging and modern designs for your portfolio.aaaa"
+      "id": "1740520130861898",
+      "image": "/uploads/1740520130699-logo.jpeg",
+      "title": "Inventore sit conseq",
+      "description": "Maxime consectetur "
     }
   ],
   "countersData": [
@@ -157,12 +138,53 @@
       ]
     },
     {
-      "id": 4,
-      "title": "Scholarship Opportunities for 2025",
-      "author": "Michael Brown",
-      "timestamp": "2025-02-21 08:45 AM",
-      "content": "Several new scholarship opportunities have been announced for the upcoming academic year. Check out our website for application details and deadlines.",
+      "id": "1740512864854595",
+      "title": "a",
+      "author": "a",
+      "timestamp": "a",
+      "content": "a",
+      "imageSrc": [
+        "/uploads/1740512861924-Untitled-design-48-300x300.png"
+      ]
+    },
+    {
+      "id": "1740513833432628",
+      "title": "a",
+      "author": "a",
+      "timestamp": "a",
+      "content": "a",
+      "imageSrc": [
+        "/uploads/1740513823403-Untitled-design-48-300x300.png",
+        "/uploads/1740513831041-unnamed.png"
+      ]
+    },
+    {
+      "id": "1740517505236163",
+      "title": "Pariatur Magnam qua",
+      "author": "Iste dicta ab dolor ",
+      "timestamp": "Eiusmod sapiente et ",
+      "content": "Temporibus reprehend",
       "imageSrc": []
+    },
+    {
+      "id": "1740520040941179",
+      "title": "Ut nesciunt nisi qu",
+      "author": "Ex in incididunt opt",
+      "timestamp": "Sint a recusandae Q",
+      "content": "Debitis enim hic eos",
+      "imageSrc": []
+    },
+    {
+      "id": "1740520678271868",
+      "title": "Voluptatem Praesent",
+      "author": "In necessitatibus po",
+      "timestamp": "Qui corporis cumque ",
+      "content": "In sed ratione illo ",
+      "imageSrc": [
+        "/uploads/1740520668799-logo.jpeg",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520678083-unnamed.png"
+      ]
     }
   ],
   "projectData": [
@@ -170,17 +192,14 @@
       "id": 1,
       "title": "Academic Awards",
       "description": "UDST offers opportunities to students to receive a number of academic awards. The academic awards do not require an application and are determined based on academic performance in terms of students’ weighted averages. Some academic awards are determined based on academic performance coupled with other specific criteria such as contribution to university life, faculty recommendation, etc. Full information about academic awards is available at the Admissions & Registration Directorate.",
-      "buttonLabel": "READ MORE",
-      "imageSrc": "/images/dummy-image.jpg",
-      "handleDetailsClick": "() => console.log('Details button clicked for Academic Awards')"
+      "imageSrc": "/uploads/1740520875204-Untitled-design-48-300x300.png",
+      "buttonLabel": ""
     },
     {
       "id": 2,
       "title": "Research Opportunities",
       "description": "UDST provides various research opportunities for students across multiple disciplines. These opportunities help students develop critical research skills and contribute to academic progress. Full details about research programs are available through the Research and Development Office.",
-      "buttonLabel": "READ MORE",
-      "imageSrc": "/images/dummy-image.jpg",
-      "handleDetailsClick": "() => console.log('Details button clicked for Research Opportunities')"
+      "imageSrc": "/images/dummy-image.jpg"
     },
     {
       "id": 3,
@@ -201,23 +220,31 @@
       "imageSrc": "/images/dummy-image.jpg"
     },
     {
-      "id": 6,
-      "title": "Online Learning",
-      "description": "UDST provides flexible online learning options for students who need to balance work, family, or other commitments. Access a range of courses and resources from anywhere in the world.",
-      "imageSrc": "/images/dummy-image.jpg"
+      "id": "1740517492731220",
+      "title": "Id dicta ut nemo nos",
+      "description": "Consequuntur magnam ",
+      "buttonLabel": "",
+      "imageSrc": null
     },
     {
-      "id": "1740486605325583",
-      "title": "a",
-      "description": "a",
-      "buttonLabel": "DOI",
+      "id": "1740520030028977",
+      "title": "Cillum ut magna pari",
+      "description": "Voluptas voluptatem ",
+      "buttonLabel": "",
       "imageSrc": null
+    },
+    {
+      "id": "1740520864607716",
+      "title": "Vel id inventore co",
+      "description": "Similique eum duis q",
+      "buttonLabel": "",
+      "imageSrc": "/uploads/1740520864397-unnamed.png"
     }
   ],
   "journalData": [
     {
       "id": 1,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740520539339-unnamed.png",
       "title": "Request Letters and Records",
       "authors": "Andrew Balch, Maria A, Cardei, Afsaneh Doryab",
       "publicationDate": "17 Oct 2024",
@@ -252,19 +279,46 @@
       "link": "/link"
     },
     {
-      "id": 5,
-      "imageSrc": "/images/dummy-image.jpg",
-      "title": "Graduation Letters",
-      "authors": "Sarah Connor, Kyle Reese",
-      "publicationDate": "01 May 2024",
-      "description": "Graduation letters serve as proof of completing all necessary credits. Learn how to request them and ensure your academic journey is well documented.",
-      "link": "/link"
+      "id": "1740513852374436",
+      "imageSrc": "/uploads/1740513898195-unnamed.png",
+      "title": "a",
+      "authors": "aasda",
+      "publicationDate": "asd",
+      "description": "a",
+      "link": "a"
+    },
+    {
+      "id": "1740517527164365",
+      "imageSrc": null,
+      "title": "Dolores et qui sint ",
+      "authors": "Sunt fugiat sequi si",
+      "publicationDate": "Amet voluptatem es",
+      "description": "Ad dignissimos quo s",
+      "link": "Quis itaque porro qu"
+    },
+    {
+      "id": "1740520059471456",
+      "imageSrc": null,
+      "title": "Maiores ex eu omnis ",
+      "authors": "Expedita rerum labor",
+      "publicationDate": "Esse ducimus volupt",
+      "description": "Sit vitae voluptate",
+      "link": "Voluptatem Aut qui "
+    },
+    {
+      "id": "1740520528193585",
+      "imageSrc": "/uploads/1740520528000-logo.jpeg",
+      "title": "Odio sed eu fuga Ve",
+      "authors": "Voluptas sed nihil a",
+      "publicationDate": "Dolores lorem dolori",
+      "description": "Et earum repellendus",
+      "link": "Aliquam dolore verit"
     }
   ],
   "conferenceData": [
     {
       "id": 1,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740520407532-unnamed.png",
       "title": "Request Letters and Records - Conference Edition",
       "authors": "Alice Brown, Bob White",
       "publicationDate": "17 Oct 2023",
@@ -288,12 +342,48 @@
       "publicationDate": "10 Dec 2023",
       "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
       "link": "/link"
+    },
+    {
+      "id": "1740513926617697",
+      "imageSrc": "/uploads/1740513945660-Untitled-design-48-300x300.png",
+      "title": "a",
+      "authors": "a",
+      "publicationDate": "ac",
+      "description": "ac",
+      "link": "ac"
+    },
+    {
+      "id": "1740520068718419",
+      "imageSrc": null,
+      "title": "Et unde ex ad et ut ",
+      "authors": "Ipsa consectetur la",
+      "publicationDate": "Labore excepteur sus",
+      "description": "Elit eiusmod eum om",
+      "link": "Cumque quia explicab"
+    },
+    {
+      "id": "1740520076863838",
+      "imageSrc": null,
+      "title": "Repellendus Volupta",
+      "authors": "Nesciunt aut neque ",
+      "publicationDate": "In est et accusamus ",
+      "description": "In nemo assumenda si",
+      "link": "Est dicta cupiditate"
+    },
+    {
+      "id": "1740520394417714",
+      "imageSrc": "/uploads/1740520394231-logo.jpeg",
+      "title": "Dolor pariatur Elit",
+      "authors": "Suscipit consectetur",
+      "publicationDate": "Ducimus sint occae",
+      "description": "Similique qui vero u",
+      "link": "Aperiam sed aut irur"
     }
   ],
   "researchData": [
     {
       "id": 1,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740520969452-logo.jpeg",
       "title": "Request Letters and Records",
       "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
       "publicationName": "Journal of University Services",
@@ -301,7 +391,7 @@
     },
     {
       "id": 2,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740520978113-Untitled-design-51-1-300x300.png",
       "title": "Transcript Requests",
       "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
       "publicationName": "Transcript Studies Quarterly",
@@ -324,80 +414,50 @@
       "publicationDate": "April 05, 2023"
     },
     {
-      "id": 5,
-      "imageSrc": "/images/dummy-image.jpg",
-      "title": "Name Change Requests",
-      "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
-      "publicationName": "Name Change & Identity",
-      "publicationDate": "May 01, 2023"
+      "id": "1740519963381545",
+      "imageSrc": null,
+      "title": "Nulla reiciendis sit",
+      "description": "Omnis omnis sit enim",
+      "publicationName": "Sunt molestiae et do",
+      "publicationDate": "Et ea aliquip numqua"
+    },
+    {
+      "id": "1740520959843280",
+      "imageSrc": "/uploads/1740520959587-unnamed.png",
+      "title": "Illo qui commodo lab",
+      "description": "Ex debitis alias dol",
+      "publicationName": "Amet aliquid labori",
+      "publicationDate": "Molestiae voluptatem"
     }
   ],
   "teamData": [
     {
-      "category": "Primary Investigator",
+      "id": "1740521253987769",
+      "category": "Similique est ducimu",
       "members": [
         {
-          "name": "Afsaneh Doryab",
-          "university": "University of Virginia",
-          "role": "Principal Investigator",
-          "image": "/path/to/afsaneh.jpg"
+          "name": "Exercitationem amet",
+          "university": "Earum anim eiusmod e",
+          "role": "Qui adipisicing cons",
+          "image": "/uploads/1740521253500-unnamed.png"
+        },
+        {
+          "name": "Saepe dolorem ab est",
+          "university": "Consectetur sequi ut",
+          "role": "Et dolores temporibu",
+          "image": "/uploads/1740521253482-logo.jpeg"
         }
       ]
     },
     {
-      "category": "PhD Students",
+      "id": "1740521279705932",
+      "category": "Similique sint aute ",
       "members": [
         {
-          "name": "Maria Cardei",
-          "university": "University of Virginia",
-          "role": "PhD Student",
-          "image": "/path/to/maria.jpg"
-        },
-        {
-          "name": "Matt Clark",
-          "university": "University of Virginia",
-          "role": "PhD Student",
-          "image": "/path/to/matt_clark.jpg"
-        },
-        {
-          "name": "Matt Landers",
-          "university": "University of Virginia",
-          "role": "PhD Student",
-          "image": "/path/to/matt_landers.jpg"
-        }
-      ]
-    },
-    {
-      "category": "Master's Students",
-      "members": [
-        {
-          "name": "Ji Hyun Kim",
-          "university": "University of Virginia",
-          "role": "Masters Student",
-          "image": "/path/to/ji_hyun_kim.jpg"
-        }
-      ]
-    },
-    {
-      "category": "Undergraduate Students",
-      "members": [
-        {
-          "name": "Andrew Balch",
-          "university": "University of Virginia",
-          "role": "Undergraduate Student",
-          "image": "/path/to/andrew_balch.jpg"
-        },
-        {
-          "name": "Armaan Chakrabarti",
-          "university": "University of Virginia",
-          "role": "Undergraduate Student",
-          "image": "/path/to/armaan_chakrabarti.jpg"
-        },
-        {
-          "name": "Chong Zhao",
-          "university": "Grinnell College",
-          "role": "Undergraduate Student",
-          "image": "/path/to/chong_zhao.jpg"
+          "name": "Corporis quis magnam",
+          "university": "Ab est voluptatem ",
+          "role": "Necessitatibus ducim",
+          "image": null
         }
       ]
     }

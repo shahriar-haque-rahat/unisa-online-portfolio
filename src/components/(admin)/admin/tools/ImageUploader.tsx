@@ -97,7 +97,7 @@ const ImageUploader = forwardRef<
                 className="mb-3 block w-full border p-2 rounded-md"
             />
 
-            {previewImage && (
+            {!uploadedImageUrl && previewImage && (
                 <img
                     src={previewImage}
                     alt="Preview"
@@ -106,7 +106,7 @@ const ImageUploader = forwardRef<
             )}
 
             {loading && <p>Uploading...</p>}
-            {error && <p className="mt-2 text-red-500 text-sm text-center">{error}</p>}
+            {error && <p className="mt-2 text-cancelPrimary text-sm text-center">{error}</p>}
 
             {uploadedImageUrl && (
                 <div className="mt-4 text-center">

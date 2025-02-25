@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ImageUploader from "./tools/ImageUploader";
@@ -7,16 +6,13 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
 const LogoForm = () => {
-  // Our data structure is: { image: string | File, content: string }
   const [logoData, setLogoData] = useState({ image: "", content: "" });
-  const uploaderRef = useRef(null);
+  const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch the current logo from /api/data/logo
   const fetchLogo = async () => {
     try {
       const res = await axios.get("/api/data/logo");
-      // Expecting something like { image: "/path/to/logo.jpg", content: "Some text" }
       if (res.data && typeof res.data === "object") {
         setLogoData({
           image: res.data.image || "",
@@ -33,26 +29,27 @@ const LogoForm = () => {
     fetchLogo();
   }, []);
 
-  // On submit, upload the file if it's a File, then send final data to the server
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    try {
-      let finalImage = logoData.image;
-      if (finalImage && finalImage instanceof File) {
+    let finalImage = logoData.image;
+    if (uploaderRef.current) {
+      try {
         const uploadedUrl = await uploaderRef.current.uploadImage();
-        finalImage = uploadedUrl;
+        if (uploadedUrl) {
+          finalImage = uploadedUrl;
+        }
+      } catch (err) {
+        toast.error("Image upload failed. Please try again.");
+        setLoading(false);
+        return;
       }
-
-      const payload = {
-        image: finalImage,
-        content: logoData.content,
-      };
-
+    }
+    const payload = { image: finalImage, content: logoData.content };
+    try {
       await axios.post("/api/data/logo", payload);
       toast.success("Logo updated successfully!");
-      fetchLogo(); // Refresh local state if needed
+      fetchLogo();
     } catch (error) {
       console.error("Error updating logo:", error);
       toast.error("Failed to update logo.");
@@ -67,48 +64,43 @@ const LogoForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Logo</h2>
+      <h2 className="text-2xl font-bold text-primary mb-2">Logo</h2>
       <p className="text-gray-500 mb-6">
         Update your site logo image and additional content here.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* IMAGE FIELD */}
+        {/* Image Field at Top */}
         <div>
-          <label className="block font-medium text-gray-700 mb-1">Logo Image</label>
+          <label className="block font-medium text-primary mb-1">Logo Image</label>
           <div className="flex items-center gap-4">
-            {logoData.image && typeof logoData.image === "string" && (
+            {logoData.image && (
               <img
                 src={logoData.image}
                 alt="Logo"
-                className="w-16 h-16 object-cover rounded-md border"
+                className="w-16 h-16 object-cover rounded border"
               />
             )}
             <ImageUploader
               ref={uploaderRef}
-              onUpload={(file) => setLogoData({ ...logoData, image: file })}
+              onUpload={(url) => setLogoData({ ...logoData, image: url })}
             />
           </div>
         </div>
-
-        {/* CONTENT FIELD */}
         <div>
-          <label className="block font-medium text-gray-700 mb-1">Logo Content</label>
+          <label className="block font-medium text-primary mb-1">Logo Content</label>
           <input
             type="text"
             value={logoData.content}
-            onChange={(e) =>
-              setLogoData({ ...logoData, content: e.target.value })
-            }
+            onChange={(e) => setLogoData({ ...logoData, content: e.target.value })}
             placeholder="e.g., My Awesome Logo"
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
-
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="px-6 py-2 bg-primary text-white rounded hover:bg-secondary transition"
         >
           {loading ? "Saving..." : "Save Logo"}
         </button>

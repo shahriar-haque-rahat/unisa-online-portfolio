@@ -5,9 +5,9 @@ import React from 'react';
 import { PrimaryButton } from '@/components/shared/Button';
 import SectionHeader from './SectionHeader';
 
-const ProjectSection = ({data}: any) => {
-    const handleDetailsClick = () =>{
-        
+const ProjectSection = ({ data }: any) => {
+    const handleDetailsClick = () => {
+
     }
     return (
         <div className="space-y-6">
@@ -35,7 +35,7 @@ const ProjectSection = ({data}: any) => {
                             {/* Button positioned at the bottom right */}
                             <div className="mt-4 flex justify-end">
                                 <PrimaryButton onClick={handleDetailsClick} className="text-sm">
-                                    {project.buttonLabel}
+                                    Details
                                 </PrimaryButton>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ const ProjectSection = ({data}: any) => {
                         {/* Image Section */}
                         <div className="relative w-2/5 h-72">
                             <Image
-                                src={project.imageSrc}
+                                src={project.imageSrc || ''}
                                 alt={project.title}
                                 layout="fill"
                                 objectFit="cover"

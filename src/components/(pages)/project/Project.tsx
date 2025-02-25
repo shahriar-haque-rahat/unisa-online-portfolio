@@ -29,7 +29,7 @@ const Project = ({ data }: any) => {
                                 <div className="relative overflow-hidden h-64 w-full group shadow-md" >
                                     {/* Background image */}
                                     <img
-                                        src={project.imageSrc}
+                                        src={project.imageSrc || ''}
                                         alt={project.title}
                                         className="absolute inset-0 w-full h-full object-cover"
                                     />

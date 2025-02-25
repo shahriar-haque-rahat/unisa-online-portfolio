@@ -1,14 +1,24 @@
 "use client";
-
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import JsonEditor from "./tools/JsonEditor";
 import ImageUploader from "./tools/ImageUploader";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+
+// Define the form data type for the journal entry.
+type JournalFormData = {
+  imageSrc: string | File | null;
+  title: string;
+  authors: string;
+  publicationDate: string;
+  description: string;
+  link: string;
+};
 
 const JournalDataForm = () => {
-  const [journals, setJournals] = useState([]);
-  const [formData, setFormData] = useState({
+  const [journals, setJournals] = useState<any[]>([]);
+  const [formData, setFormData] = useState<JournalFormData>({
     imageSrc: null,
     title: "",
     authors: "",
@@ -16,9 +26,9 @@ const JournalDataForm = () => {
     description: "",
     link: "",
   });
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const uploaderRef = useRef(null);
+  const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
 
   const fetchData = async () => {
     try {
@@ -34,16 +44,33 @@ const JournalDataForm = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      let imageUrl = formData.imageSrc;
-      if (formData.imageSrc && formData.imageSrc instanceof File) {
-        imageUrl = await uploaderRef.current.uploadImage();
-      }
-      const dataToSubmit = { ...formData, imageSrc: imageUrl };
 
+    // Get the existing image URL if formData.imageSrc is already a string.
+    let imageUrl: string | null = typeof formData.imageSrc === "string" ? formData.imageSrc : null;
+
+    // Always attempt to upload the image.
+    if (uploaderRef.current) {
+      try {
+        const newImageUrl = await uploaderRef.current.uploadImage();
+        if (newImageUrl) {
+          imageUrl = newImageUrl;
+          console.log("Uploader returned new URL:", imageUrl);
+        } else {
+          console.log("Uploader did not return a new URL; using existing image URL:", imageUrl);
+        }
+      } catch (err) {
+        console.error("Image upload failed:", err);
+        toast.error("Image upload failed. Please try again.");
+        setLoading(false);
+        return; // Halt submission if image upload fails
+      }
+    }
+
+    const dataToSubmit = { ...formData, imageSrc: imageUrl };
+    try {
       if (editingId) {
         await JsonEditor.edit("journalData", editingId, dataToSubmit);
         toast.success("Journal updated successfully!");
@@ -52,7 +79,7 @@ const JournalDataForm = () => {
         await JsonEditor.add("journalData", dataToSubmit);
         toast.success("Journal added successfully!");
       }
-
+      // Reset the form data.
       setFormData({
         imageSrc: null,
         title: "",
@@ -70,12 +97,12 @@ const JournalDataForm = () => {
     }
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({ ...item, imageSrc: item.imageSrc });
     setEditingId(item.id);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this journal entry?")) return;
     try {
       await JsonEditor.delete("journalData", id);
@@ -110,36 +137,44 @@ const JournalDataForm = () => {
             )}
             <ImageUploader
               ref={uploaderRef}
-              onUpload={(file) => setFormData({ ...formData, imageSrc: file })}
+              onUpload={(url) => setFormData({ ...formData, imageSrc: url })}
             />
           </div>
         </div>
-
-        {/* Title, Authors, PublicationDate, Description, Link */}
-        <input
-          type="text"
-          placeholder="Title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Authors"
-          value={formData.authors}
-          onChange={(e) => setFormData({ ...formData, authors: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Publication Date (e.g., 17 Oct 2024)"
-          value={formData.publicationDate}
-          onChange={(e) => setFormData({ ...formData, publicationDate: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          required
-        />
+        {/* Other fields */}
+        <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Authors"
+            value={formData.authors}
+            onChange={(e) => setFormData({ ...formData, authors: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Publication Date (e.g., 17 Oct 2024)"
+            value={formData.publicationDate}
+            onChange={(e) => setFormData({ ...formData, publicationDate: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Link"
+            value={formData.link}
+            onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </section>
         <textarea
           placeholder="Description"
           value={formData.description}
@@ -147,19 +182,8 @@ const JournalDataForm = () => {
           className="w-full border border-gray-300 rounded px-3 py-2"
           required
         />
-        <input
-          type="text"
-          placeholder="Link"
-          value={formData.link}
-          onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
-        />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
+        <button type="submit" disabled={loading} className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition">
           {editingId ? "Update Journal" : "Add Journal"}
         </button>
       </form>
@@ -167,6 +191,7 @@ const JournalDataForm = () => {
       <table className="w-full mt-6 border-collapse">
         <thead>
           <tr className="bg-gray-50">
+            <th className="border p-2 text-gray-600">Image</th>
             <th className="border p-2 text-gray-600">Title</th>
             <th className="border p-2 text-gray-600">Authors</th>
             <th className="border p-2 text-gray-600">Publication Date</th>
@@ -174,32 +199,35 @@ const JournalDataForm = () => {
           </tr>
         </thead>
         <tbody>
-          {journals.map((item) => (
+          {journals.map((item: any) => (
             <tr key={item.id} className="text-center">
+              <td className="border p-2 w-28">
+                {item.imageSrc && (
+                  <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
+                )}
+              </td>
               <td className="border p-2">{item.title}</td>
               <td className="border p-2">{item.authors}</td>
               <td className="border p-2">{item.publicationDate}</td>
-              <td className="border p-2 space-x-2">
+              <td className="border p-2 space-x-2 w-28">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="px-2 py-1 text-primary rounded hover:text-secondary"
                 >
-                  Edit
+                  <MdEditSquare size={22} />
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
                 >
-                  Delete
+                  <MdDeleteForever size={24} />
                 </button>
               </td>
             </tr>
           ))}
           {journals.length === 0 && (
             <tr>
-              <td colSpan={4} className="p-4 text-gray-500">
-                No journal entries added.
-              </td>
+              <td colSpan={4} className="p-4 text-gray-500">No journal entries added.</td>
             </tr>
           )}
         </tbody>
