@@ -10,6 +10,7 @@ import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 type ResearchFormData = {
   imageSrc: string | File | null;
   title: string;
+  link: string;
   description: string;
   publicationName: string;
   publicationDate: string;
@@ -20,6 +21,7 @@ const ResearchDataForm = () => {
   const [formData, setFormData] = useState<ResearchFormData>({
     imageSrc: null,
     title: "",
+    link: "",
     description: "",
     publicationName: "",
     publicationDate: "",
@@ -80,6 +82,7 @@ const ResearchDataForm = () => {
       setFormData({
         imageSrc: null,
         title: "",
+        link: "",
         description: "",
         publicationName: "",
         publicationDate: "",
@@ -116,8 +119,6 @@ const ResearchDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Research Data</h2>
-      <p className="text-gray-500 mb-6">Manage your research entries here.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Research Image Field */}
@@ -143,7 +144,15 @@ const ResearchDataForm = () => {
             placeholder="Title"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Link"
+            value={formData.link}
+            onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+            className="modern-input"
             required
           />
           <input
@@ -151,7 +160,7 @@ const ResearchDataForm = () => {
             placeholder="Publication Name"
             value={formData.publicationName}
             onChange={(e) => setFormData({ ...formData, publicationName: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -159,7 +168,7 @@ const ResearchDataForm = () => {
             placeholder="Publication Date (e.g., January 15, 2023)"
             value={formData.publicationDate}
             onChange={(e) => setFormData({ ...formData, publicationDate: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
         </section>
@@ -167,7 +176,7 @@ const ResearchDataForm = () => {
           placeholder="Description"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="modern-input"
           required
         />
         <button
@@ -179,50 +188,55 @@ const ResearchDataForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Image</th>
-            <th className="border p-2 text-gray-600">Title</th>
-            <th className="border p-2 text-gray-600">Publication Name</th>
-            <th className="border p-2 text-gray-600">Publication Date</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {researchEntries.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2 w-28">
-                {item.imageSrc && (
-                  <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
-                )}
-              </td>
-              <td className="border p-2">{item.title}</td>
-              <td className="border p-2">{item.publicationName}</td>
-              <td className="border p-2">{item.publicationDate}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22} />
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24} />
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Image</th>
+              <th className="min-w-32 modern-table-th">Title</th>
+              <th className="min-w-44 modern-table-th">Link</th>
+              <th className="min-w-44 modern-table-th">Publication Name</th>
+              <th className="min-w-32 modern-table-th">Publication Date</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {researchEntries.length === 0 && (
-            <tr>
-              <td colSpan={4} className="p-4 text-gray-500">No research entries added.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {researchEntries.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">
+                  {item.imageSrc && (
+                    <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
+                  )}
+                </td>
+                <td className="modern-table-td">{item.title}</td>
+                <td className="modern-table-td">{item.link}</td>
+                <td className="modern-table-td">{item.publicationName}</td>
+                <td className="modern-table-td">{item.publicationDate}</td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {researchEntries.length === 0 && (
+              <tr>
+                <td colSpan={4} className="modern-table-td text-center">No research entries added.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

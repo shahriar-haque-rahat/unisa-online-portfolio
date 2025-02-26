@@ -7,12 +7,25 @@ import { FaFacebookF, FaGoogle, FaLinkedinIn } from 'react-icons/fa6';
 import { BsTwitterX } from 'react-icons/bs';
 import NavLoading from '../shared/Loading/NavLoading';
 
+interface NavbarData {
+    logo: {
+        image: string;
+        content: string;
+    };
+    socialLinks: {
+        id: string;
+        name: string;
+        path: string;
+    }[];
+}
+
 const Navbar: React.FC = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
 
-    const [data, setData] = useState<any>(null);
+    // Declare hooks first
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [data, setData] = useState<NavbarData | null>(null);
 
     useEffect(() => {
         fetch('/data/data.json')
@@ -20,6 +33,10 @@ const Navbar: React.FC = () => {
             .then((jsonData) => setData(jsonData))
             .catch((err) => console.error('Error fetching data:', err));
     }, []);
+    
+    if (pathname.startsWith('/admin')) {
+        return null;
+    }
 
     const toggleMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -37,7 +54,6 @@ const Navbar: React.FC = () => {
 
     const isActive = (route: string) => pathname === route;
 
-    // Helper function to map social names to icons
     const getSocialIcon = (name: string) => {
         switch (name) {
             case 'LinkedIn': return <FaLinkedinIn className="h-5 w-5" />;
@@ -54,18 +70,19 @@ const Navbar: React.FC = () => {
                 <div className="max-w-7xl mx-auto mt-4 flex items-center justify-between">
                     {/* Logo Section with Animation */}
                     <div className='w-40 flex justify-start items-center'>
-                        {data ?
+                        {data ? (
                             <motion.div
                                 className="flex justify-center items-center gap-2 text-xl font-semibold text-primary cursor-pointer"
                                 onClick={() => router.push('/')}
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ type: 'spring', stiffness: 300 }}
                             >
-                                <img src={data.logo.image || ''} alt="logo" className="h-10 w-auto" />
+                                <img src={data.logo.image} alt="logo" className="h-10 w-auto" />
                                 <h1>{data.logo.content}</h1>
                             </motion.div>
-                            : <NavLoading />
-                        }
+                        ) : (
+                            <NavLoading />
+                        )}
                     </div>
 
                     {/* Desktop Navigation (Center) */}
@@ -93,24 +110,26 @@ const Navbar: React.FC = () => {
                     </nav>
 
                     {/* Desktop Social Links (Right) */}
-                    <div className=' w-40 flex justify-end items-center'>
-                        {data ? <div className="hidden lg:flex space-x-4">
-                            {data.socialLinks.map((social: any) => (
-                                <motion.a
-                                    key={social.name}
-                                    href={social.path}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-gray-600 hover:text-primary"
-                                    whileHover={{ scale: 1.1 }}
-                                    transition={{ type: 'spring', stiffness: 300 }}
-                                >
-                                    {getSocialIcon(social.name)}
-                                </motion.a>
-                            ))}
-                        </div>
-                            : <NavLoading />
-                        }
+                    <div className='w-40 flex justify-end items-center'>
+                        {data ? (
+                            <div className="hidden lg:flex space-x-4">
+                                {data.socialLinks.map((social) => (
+                                    <motion.a
+                                        key={social.name}
+                                        href={social.path}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-600 hover:text-primary"
+                                        whileHover={{ scale: 1.1 }}
+                                        transition={{ type: 'spring', stiffness: 300 }}
+                                    >
+                                        {getSocialIcon(social.name)}
+                                    </motion.a>
+                                ))}
+                            </div>
+                        ) : (
+                            <NavLoading />
+                        )}
                     </div>
 
                     {/* Mobile Hamburger Icon */}
@@ -205,7 +224,7 @@ const Navbar: React.FC = () => {
                                     {/* Social Icons at Bottom */}
                                     {data ? (
                                         <div className="flex space-x-6 justify-center pb-6">
-                                            {data.socialLinks.map((social: any, index: number) => (
+                                            {data.socialLinks.map((social, index) => (
                                                 <motion.a
                                                     key={social.name}
                                                     href={social.path}
@@ -228,7 +247,6 @@ const Navbar: React.FC = () => {
                         </>
                     )}
                 </AnimatePresence>
-
             </header>
         </>
     );

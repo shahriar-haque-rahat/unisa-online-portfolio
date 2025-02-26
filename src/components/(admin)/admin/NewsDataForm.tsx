@@ -122,8 +122,6 @@ const NewsDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">News Data</h2>
-      <p className="text-gray-500 mb-6">Manage your news entries here.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -151,7 +149,7 @@ const NewsDataForm = () => {
             placeholder="Title"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -159,7 +157,7 @@ const NewsDataForm = () => {
             placeholder="Author"
             value={formData.author}
             onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -167,7 +165,7 @@ const NewsDataForm = () => {
             placeholder="Timestamp (e.g., 2025-02-24 09:15 AM)"
             value={formData.timestamp}
             onChange={(e) => setFormData({ ...formData, timestamp: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
         </section>
@@ -175,7 +173,7 @@ const NewsDataForm = () => {
           placeholder="Content"
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="modern-input"
           required
         />
 
@@ -188,52 +186,55 @@ const NewsDataForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Image</th>
-            <th className="border p-2 text-gray-600">Title</th>
-            <th className="border p-2 text-gray-600">Author</th>
-            <th className="border p-2 text-gray-600">Timestamp</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {news.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2 w-28">
-                {item.imageSrc && (
-                  <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
-                )}
-              </td>
-              <td className="border p-2">{item.title}</td>
-              <td className="border p-2">{item.author}</td>
-              <td className="border p-2">{item.timestamp}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22} />
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24} />
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Image</th>
+              <th className="min-w-32 modern-table-th">Title</th>
+              <th className="min-w-32 modern-table-th">Author</th>
+              <th className="min-w-32 modern-table-th">Timestamp</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {news.length === 0 && (
-            <tr>
-              <td colSpan={4} className="p-4 text-gray-500">
-                No news entries added.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {news.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">
+                  {item.imageSrc && (
+                    <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
+                  )}
+                </td>
+                <td className="modern-table-td">{item.title}</td>
+                <td className="modern-table-td">{item.author}</td>
+                <td className="modern-table-td">{item.timestamp}</td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {news.length === 0 && (
+              <tr>
+                <td colSpan={4} className="modern-table-td text-center">
+                  No news entries added.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

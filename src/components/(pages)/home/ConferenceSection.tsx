@@ -5,13 +5,13 @@ import React from 'react';
 import SectionHeader from './SectionHeader';
 import { useRouter } from 'next/navigation';
 
-const handleDetails = () => {
-    console.log("Details")
-}
 
-
-const ConferenceSection = ({data}: any) => {
+const ConferenceSection = ({ data }: any) => {
     const router = useRouter();
+
+    const handleDetails = (link: string) => {
+        window.open(link, '_blank');
+    };
 
     return (
         <>
@@ -32,7 +32,7 @@ const ConferenceSection = ({data}: any) => {
 
                             {/* Details Button */}
                             <div className="flex justify-end">
-                                <PrimaryButton onClick={handleDetails} className="text-sm">
+                                <PrimaryButton onClick={() => handleDetails(conference.link)} className="text-sm">
                                     Details
                                 </PrimaryButton>
                             </div>

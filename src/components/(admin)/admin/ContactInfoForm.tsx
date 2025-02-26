@@ -70,10 +70,6 @@ const ContactInfoForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Contact Information</h2>
-      <p className="text-gray-500 mb-6">
-        Manage your contact details such as phone, email, and address.
-      </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -82,7 +78,7 @@ const ContactInfoForm = () => {
             placeholder="Label (e.g., Address, Phone)"
             value={formData.label}
             onChange={(e) => setFormData({ ...formData, label: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -90,7 +86,7 @@ const ContactInfoForm = () => {
             placeholder="Value"
             value={formData.value}
             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -98,7 +94,7 @@ const ContactInfoForm = () => {
             placeholder="Link (optional)"
             value={formData.link}
             onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
           />
         </section>
         <button
@@ -110,47 +106,50 @@ const ContactInfoForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Label</th>
-            <th className="border p-2 text-gray-600">Value</th>
-            <th className="border p-2 text-gray-600">Link</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contactInfo.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2">{item.label}</td>
-              <td className="border p-2">{item.value}</td>
-              <td className="border p-2">{item.link}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22}/>
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24}/>
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Label</th>
+              <th className="min-w-32 modern-table-th">Value</th>
+              <th className="min-w-44 modern-table-th">Link</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {contactInfo.length === 0 && (
-            <tr>
-              <td colSpan={4} className="p-4 text-gray-500">
-                No contact info added.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </motion.div>
+          </thead>
+          <tbody>
+            {contactInfo.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">{item.label}</td>
+                <td className="modern-table-td">{item.value}</td>
+                <td className="modern-table-td">{item.link}</td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {contactInfo.length === 0 && (
+              <tr>
+                <td colSpan={4} className="modern-table-td text-center">
+                  No contact info added.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </motion.div >
   );
 };
 

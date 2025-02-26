@@ -34,9 +34,9 @@ const News = ({ data }: any) => {
 
                             return (
                                 <HoverWrapper key={post.id}>
-                                    <div className="relative bg-white shadow-md flex gap-4 group">
+                                    <div className="relative bg-white shadow-md flex flex-col md:flex-row gap-4 group">
                                         {/* Text Content */}
-                                        <div className="w-4/6 flex flex-col justify-center p-8">
+                                        <div className="md:w-4/6 flex flex-col justify-center p-8">
                                             <h3 className="text-xl font-bold text-primary">{post.title}</h3>
                                             <div className="text-gray-500 text-sm mb-2">
                                                 By {post.author} • {post.timestamp}
@@ -46,7 +46,7 @@ const News = ({ data }: any) => {
 
                                         {/* Image Section */}
                                         {post.imageSrc.length > 0 && (
-                                            <div className="w-2/6">
+                                            <div className="md:w-2/6">
                                                 <div className="aspect-square">
                                                     <img
                                                         src={post.imageSrc[0] || ''}

@@ -4,6 +4,7 @@ import JsonEditor from "./tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+import CountUp from "react-countup";
 
 const CountersDataForm = () => {
   const [counters, setCounters] = useState([]);
@@ -65,25 +66,28 @@ const CountersDataForm = () => {
   };
 
   return (
-    <motion.div className="bg-white shadow-lg rounded-lg p-6 my-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Counters Data</h2>
-      <p className="text-gray-500 mb-6">Manage numeric counters (e.g., stats or achievements).</p>
-
+    <motion.div
+      className="bg-white shadow-lg rounded-lg p-6 my-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <form onSubmit={handleSubmit} className="space-y-5">
         <input
           type="text"
           placeholder="Title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="modern-input"
           required
         />
         <input
           type="number"
           placeholder="Value"
           value={formData.value}
-          onChange={(e) => setFormData({ ...formData, value: Number(e.target.value) })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          onChange={(e) =>
+            setFormData({ ...formData, value: Number(e.target.value) })
+          }
+          className="modern-input"
           required
         />
         <button
@@ -95,44 +99,55 @@ const CountersDataForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Title</th>
-            <th className="border p-2 text-gray-600">Value</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {counters.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2">{item.title}</td>
-              <td className="border p-2">{item.value}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22}/>
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24}/>
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Title</th>
+              <th className="min-w-32 modern-table-th">Value</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {counters.length === 0 && (
-            <tr>
-              <td colSpan={3} className="p-4 text-gray-500">
-                No counters added.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {counters.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">{item.title}</td>
+                <td className="modern-table-td">
+                  <CountUp
+                    start={0}
+                    end={item.value}
+                    duration={1.5}
+                    // Use redraw so that if the value changes, it animates again.
+                    redraw={true}
+                  />
+                </td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {counters.length === 0 && (
+              <tr>
+                <td colSpan={3} className="modern-table-td text-center">
+                  No counters added.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

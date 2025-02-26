@@ -70,8 +70,6 @@ const SocialLinksForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Social Links</h2>
-      <p className="text-gray-500 mb-6">Manage your social media or external links here.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -80,7 +78,7 @@ const SocialLinksForm = () => {
             placeholder="Name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
           <input
@@ -88,7 +86,7 @@ const SocialLinksForm = () => {
             placeholder="Path (URL)"
             value={formData.path}
             onChange={(e) => setFormData({ ...formData, path: e.target.value })}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
             required
           />
         </section>
@@ -101,44 +99,47 @@ const SocialLinksForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Name</th>
-            <th className="border p-2 text-gray-600">Path</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {socialLinks.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2">{item.name}</td>
-              <td className="border p-2">{item.path}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22}/>
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24}/>
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Name</th>
+              <th className="min-w-32 modern-table-th">Path</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {socialLinks.length === 0 && (
-            <tr>
-              <td colSpan={3} className="p-4 text-gray-500">
-                No social links added.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {socialLinks.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">{item.name}</td>
+                <td className="modern-table-td">{item.path}</td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {socialLinks.length === 0 && (
+              <tr>
+                <td colSpan={3} className="modern-table-td text-center">
+                  No social links added.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

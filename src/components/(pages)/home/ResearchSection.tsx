@@ -3,13 +3,14 @@
 import React from "react";
 import { SecondaryButton } from "@/components/shared/Button";
 
-const handleDetails = () => {
 
-}
-
-const ResearchSection = ({data}: any) => {
+const ResearchSection = ({ data }: any) => {
+    const handleDetails = (link: string) => {
+        window.open(link, '_blank');
+    };
+    
     return (
-        <div className=" flex flex-wrap justify-center lg:justify-between">
+        <div className=" flex flex-wrap justify-center lg:justify-between gap-6 lg:gap-0">
             {data.researchData.slice(0, 2).map((research: any) => {
                 const truncatedText = research.description.split(" ").slice(0, 20).join(" ") + "...";
 
@@ -31,7 +32,7 @@ const ResearchSection = ({data}: any) => {
 
                             {/* Details Button */}
                             <div className="flex justify-end">
-                                <SecondaryButton onClick={handleDetails}>
+                                <SecondaryButton onClick={() => handleDetails(research.link)}>
                                     Details
                                 </SecondaryButton>
                             </div>

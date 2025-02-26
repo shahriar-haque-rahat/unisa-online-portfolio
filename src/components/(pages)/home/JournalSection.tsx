@@ -5,12 +5,12 @@ import React from 'react';
 import SectionHeader from './SectionHeader';
 import { useRouter } from 'next/navigation';
 
-const handleDetails = () => {
-    console.log("Details")
-}
-
-const JournalSection = ({data}: any) => {
+const JournalSection = ({ data }: any) => {
     const router = useRouter();
+
+    const handleDetails = (link: string) => {
+        window.open(link, '_blank');
+    };
 
     return (
         <div className="space-y-6">
@@ -30,7 +30,7 @@ const JournalSection = ({data}: any) => {
 
                         {/* Details Button */}
                         <div className="flex justify-end">
-                            <SecondaryButton onClick={handleDetails}>
+                            <SecondaryButton onClick={() => handleDetails(journal.link)}>
                                 Details
                             </SecondaryButton>
                         </div>

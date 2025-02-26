@@ -6,9 +6,10 @@ import { PrimaryButton } from '@/components/shared/Button';
 import SectionHeader from './SectionHeader';
 
 const ProjectSection = ({ data }: any) => {
-    const handleDetailsClick = () => {
+    const handleDetails = (link: string) => {
+        window.open(link, '_blank');
+    };
 
-    }
     return (
         <div className="space-y-6">
             <SectionHeader>Project</SectionHeader>
@@ -34,7 +35,7 @@ const ProjectSection = ({ data }: any) => {
 
                             {/* Button positioned at the bottom right */}
                             <div className="mt-4 flex justify-end">
-                                <PrimaryButton onClick={handleDetailsClick} className="text-sm">
+                                <PrimaryButton onClick={() => handleDetails(project.link)} className="text-sm">
                                     Details
                                 </PrimaryButton>
                             </div>
@@ -42,11 +43,10 @@ const ProjectSection = ({ data }: any) => {
 
                         {/* Image Section */}
                         <div className="relative w-2/5 h-72">
-                            <Image
+                            <img
                                 src={project.imageSrc || ''}
                                 alt={project.title}
-                                layout="fill"
-                                objectFit="cover"
+                                className=' object-cover w-full h-full'
                             />
                         </div>
                     </div>

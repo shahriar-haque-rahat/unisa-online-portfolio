@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     pages: { signIn: "/auth/login" },
-    secret: process.env.NEXTAUTH_SECRET || "some-random-secret",
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
     },

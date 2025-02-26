@@ -1,7 +1,7 @@
 {
   "logo": {
-    "image": "/uploads/1740520569445-unnamed.png",
-    "content": "logo"
+    "image": "/uploads/1740565738678-images.jpg",
+    "content": "Logo"
   },
   "contactInfo": [
     {
@@ -69,6 +69,24 @@
       "image": "/uploads/1740520130699-logo.jpeg",
       "title": "Inventore sit conseq",
       "description": "Maxime consectetur "
+    },
+    {
+      "id": "1740562579271111",
+      "image": "/uploads/1740562579249-images.jpg",
+      "title": "a",
+      "description": "a"
+    },
+    {
+      "id": "1740563391604533",
+      "image": "/uploads/1740563391577-images.jpg",
+      "title": "asdasd",
+      "description": "asdasdasd"
+    },
+    {
+      "id": "1740564340490460",
+      "image": "/uploads/1740564340404-rahat.jpg",
+      "title": "a",
+      "description": "a"
     }
   ],
   "countersData": [
@@ -121,8 +139,8 @@
       "timestamp": "2025-02-23 03:30 PM",
       "content": "Our campus is growing! We have recently opened new state-of-the-art facilities that provide students with the resources needed to excel academically.",
       "imageSrc": [
-        "/images/dummy-image.jpg",
-        "/images/dummy-image.jpg"
+        "/uploads/1740562550007-images.jpg",
+        "/uploads/1740562550007-images.jpg"
       ]
     },
     {
@@ -133,8 +151,8 @@
       "content": "Our research team has made a significant breakthrough in renewable energy technology. This innovation could pave the way for more sustainable energy solutions worldwide.",
       "imageSrc": [
         "/images/dummy-image-2.png",
-        "/images/dummy-image.jpg",
-        "/images/dummy-image.jpg"
+        "/uploads/1740562550007-images.jpg",
+        "/uploads/1740562550007-images.jpg"
       ]
     },
     {
@@ -193,52 +211,73 @@
       "title": "Academic Awards",
       "description": "UDST offers opportunities to students to receive a number of academic awards. The academic awards do not require an application and are determined based on academic performance in terms of students’ weighted averages. Some academic awards are determined based on academic performance coupled with other specific criteria such as contribution to university life, faculty recommendation, etc. Full information about academic awards is available at the Admissions & Registration Directorate.",
       "imageSrc": "/uploads/1740520875204-Untitled-design-48-300x300.png",
-      "buttonLabel": ""
+      "link": "http://dummy.com"
     },
     {
       "id": 2,
       "title": "Research Opportunities",
       "description": "UDST provides various research opportunities for students across multiple disciplines. These opportunities help students develop critical research skills and contribute to academic progress. Full details about research programs are available through the Research and Development Office.",
-      "imageSrc": "/images/dummy-image.jpg"
+      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "link": "http://dummy.com"
     },
     {
       "id": 3,
       "title": "Scholarship Programs",
       "description": "UDST offers multiple scholarship programs for deserving students. These programs are designed to reward academic excellence and to support students in financial need. Learn more about how you can apply for a scholarship today.",
-      "imageSrc": "/images/dummy-image.jpg"
+      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "link": "http://dummy.com"
     },
     {
       "id": 4,
       "title": "Student Exchange",
       "description": "UDST has partnerships with universities around the world, providing students with opportunities for exchange programs. Broaden your horizons by studying abroad while earning credits towards your UDST degree.",
-      "imageSrc": "/images/dummy-image.jpg"
+      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "link": "http://dummy.com"
     },
     {
       "id": 5,
       "title": "Internship Programs",
       "description": "UDST partners with leading companies in various industries to provide internship opportunities. Gain real-world experience and boost your resume before graduation.",
-      "imageSrc": "/images/dummy-image.jpg"
+      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "link": "http://dummy.com"
     },
     {
       "id": "1740517492731220",
       "title": "Id dicta ut nemo nos",
       "description": "Consequuntur magnam ",
-      "buttonLabel": "",
-      "imageSrc": null
+      "imageSrc": null,
+      "link": "http://dummy.com"
     },
     {
       "id": "1740520030028977",
       "title": "Cillum ut magna pari",
       "description": "Voluptas voluptatem ",
       "buttonLabel": "",
-      "imageSrc": null
+      "imageSrc": null,
+      "link": "http://dummy.com"
     },
     {
       "id": "1740520864607716",
       "title": "Vel id inventore co",
       "description": "Similique eum duis q",
+      "imageSrc": "/uploads/1740520864397-unnamed.png",
+      "link": "http://dummy.com"
+    },
+    {
+      "id": "1740562615410362",
+      "title": "Et commodi pariatur",
+      "link": "Dolor autem aut dese",
+      "description": "Autem adipisci elige",
       "buttonLabel": "",
-      "imageSrc": "/uploads/1740520864397-unnamed.png"
+      "imageSrc": "/uploads/1740562615392-images.jpg"
+    },
+    {
+      "id": "1740562647806435",
+      "title": "Corrupti et assumen",
+      "link": "Quia excepteur totam",
+      "description": "Omnis quia id nobis ",
+      "buttonLabel": "",
+      "imageSrc": "/uploads/1740562647797-rahat.jpg"
     }
   ],
   "journalData": [
@@ -253,7 +292,7 @@
     },
     {
       "id": 2,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Transcript Requests",
       "authors": "Jason Donald Chin, Matthew Clark, Afsaneh Doryab",
       "publicationDate": "20 Feb 2024",
@@ -262,7 +301,7 @@
     },
     {
       "id": 3,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Name Change Requests",
       "authors": "John Doe, Jane Smith",
       "publicationDate": "10 Mar 2024",
@@ -271,7 +310,7 @@
     },
     {
       "id": 4,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Additional Records Requests",
       "authors": "Chris Evans, Morgan Lee",
       "publicationDate": "05 Apr 2024",
@@ -327,7 +366,7 @@
     },
     {
       "id": 2,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Transcript Requests - Seminar",
       "authors": "Dr. Transcript, Ms. Request",
       "publicationDate": "20 Nov 2023",
@@ -336,7 +375,7 @@
     },
     {
       "id": 3,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Name Change Requests - Workshop",
       "authors": "John Appleseed, Lucy Orman",
       "publicationDate": "10 Dec 2023",
@@ -377,7 +416,7 @@
       "authors": "Suscipit consectetur",
       "publicationDate": "Ducimus sint occae",
       "description": "Similique qui vero u",
-      "link": "Aperiam sed aut irur"
+      "link": "http://dummy.com"
     }
   ],
   "researchData": [
@@ -387,7 +426,8 @@
       "title": "Request Letters and Records",
       "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
       "publicationName": "Journal of University Services",
-      "publicationDate": "January 15, 2023"
+      "publicationDate": "January 15, 2023",
+      "link": "http://dummy.com"
     },
     {
       "id": 2,
@@ -395,23 +435,26 @@
       "title": "Transcript Requests",
       "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
       "publicationName": "Transcript Studies Quarterly",
-      "publicationDate": "February 20, 2023"
+      "publicationDate": "February 20, 2023",
+      "link": "http://dummy.com"
     },
     {
       "id": 3,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Name Change Requests",
       "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
       "publicationName": "Research Digest",
-      "publicationDate": "March 10, 2023"
+      "publicationDate": "March 10, 2023",
+      "link": "http://dummy.com"
     },
     {
       "id": 4,
-      "imageSrc": "/images/dummy-image.jpg",
+      "imageSrc": "/uploads/1740562550007-images.jpg",
       "title": "Name Change Requests",
       "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
       "publicationName": "Academic Record Review",
-      "publicationDate": "April 05, 2023"
+      "publicationDate": "April 05, 2023",
+      "link": "http://dummy.com"
     },
     {
       "id": "1740519963381545",
@@ -419,7 +462,8 @@
       "title": "Nulla reiciendis sit",
       "description": "Omnis omnis sit enim",
       "publicationName": "Sunt molestiae et do",
-      "publicationDate": "Et ea aliquip numqua"
+      "publicationDate": "Et ea aliquip numqua",
+      "link": "http://dummy.com"
     },
     {
       "id": "1740520959843280",
@@ -427,7 +471,8 @@
       "title": "Illo qui commodo lab",
       "description": "Ex debitis alias dol",
       "publicationName": "Amet aliquid labori",
-      "publicationDate": "Molestiae voluptatem"
+      "publicationDate": "Molestiae voluptatem",
+      "link": "http://dummy.com"
     }
   ],
   "teamData": [
@@ -439,13 +484,13 @@
           "name": "Exercitationem amet",
           "university": "Earum anim eiusmod e",
           "role": "Qui adipisicing cons",
-          "image": "/uploads/1740521253500-unnamed.png"
+          "image": "/uploads/1740520673888-unnamed.png"
         },
         {
           "name": "Saepe dolorem ab est",
           "university": "Consectetur sequi ut",
           "role": "Et dolores temporibu",
-          "image": "/uploads/1740521253482-logo.jpeg"
+          "image": "/uploads/1740520673888-unnamed.png"
         }
       ]
     },

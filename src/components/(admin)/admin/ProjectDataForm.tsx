@@ -9,8 +9,8 @@ import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 // Define a type for the project form data.
 type ProjectFormData = {
   title: string;
+  link: string;
   description: string;
-  buttonLabel: string;
   imageSrc: string | File | null;
 };
 
@@ -18,8 +18,8 @@ const ProjectDataForm = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [formData, setFormData] = useState<ProjectFormData>({
     title: "",
+    link: "",
     description: "",
-    buttonLabel: "",
     imageSrc: null,
   });
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -74,7 +74,7 @@ const ProjectDataForm = () => {
         await JsonEditor.add("projectData", dataToSubmit);
         toast.success("Project added successfully!");
       }
-      setFormData({ title: "", description: "", buttonLabel: "", imageSrc: null });
+      setFormData({ title: "", link: "", description: "", imageSrc: null });
       fetchData();
     } catch (error) {
       console.error("Error saving project:", error);
@@ -87,8 +87,8 @@ const ProjectDataForm = () => {
   const handleEdit = (item: any) => {
     setFormData({
       title: item.title,
+      link: item.link,
       description: item.description,
-      buttonLabel: item.buttonLabel || "",
       imageSrc: item.imageSrc,
     });
     setEditingId(item.id);
@@ -112,8 +112,6 @@ const ProjectDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Project Data</h2>
-      <p className="text-gray-500 mb-6">Manage your project entries here.</p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Image Field */}
@@ -138,14 +136,22 @@ const ProjectDataForm = () => {
           placeholder="Title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="modern-input"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Link"
+          value={formData.link}
+          onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+          className="modern-input"
           required
         />
         <textarea
           placeholder="Description"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="modern-input"
           required
         />
 
@@ -158,50 +164,55 @@ const ProjectDataForm = () => {
         </button>
       </form>
 
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border p-2 text-gray-600">Image</th>
-            <th className="border p-2 text-gray-600">Title</th>
-            <th className="border p-2 text-gray-600">Description</th>
-            <th className="border p-2 text-gray-600">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {projects.map((item: any) => (
-            <tr key={item.id} className="text-center">
-              <td className="border p-2 w-28">
-                {item.imageSrc && (
-                  <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
-                )}
-              </td>
-              <td className="border p-2">{item.title}</td>
-              <td className="border p-2">{item.description}</td>
-              <td className="border p-2 space-x-2 w-28">
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="px-2 py-1 text-primary rounded hover:text-secondary"
-                >
-                  <MdEditSquare size={22} />
-                </button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-2 py-1 text-cancelPrimary rounded hover:text-cancelSecondary"
-                >
-                  <MdDeleteForever size={24} />
-                </button>
-              </td>
+      {/* Responsive Table Container */}
+      <div className="modern-table-container">
+        <table className="modern-table">
+          <thead>
+            <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Image</th>
+              <th className="min-w-32 modern-table-th">Title</th>
+              <th className="min-w-44 modern-table-th">Link</th>
+              <th className="min-w-52 modern-table-th">Description</th>
+              <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
-          ))}
-          {projects.length === 0 && (
-            <tr>
-              <td colSpan={5} className="p-4 text-gray-500">
-                No projects added.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {projects.map((item: any) => (
+              <tr key={item.id} className="modern-table-tr">
+                <td className="modern-table-td">
+                  {item.imageSrc && (
+                    <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
+                  )}
+                </td>
+                <td className="modern-table-td">{item.title}</td>
+                <td className="modern-table-td">{item.link}</td>
+                <td className="modern-table-td">{item.description}</td>
+                <td className="modern-table-td">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
+                    <MdEditSquare size={22} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
+                    <MdDeleteForever size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {projects.length === 0 && (
+              <tr>
+                <td colSpan={5} className="modern-table-td text-center">
+                  No projects added.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </motion.div>
   );
 };

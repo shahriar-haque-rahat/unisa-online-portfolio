@@ -64,10 +64,6 @@ const LogoForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h2 className="text-2xl font-bold text-primary mb-2">Logo</h2>
-      <p className="text-gray-500 mb-6">
-        Update your site logo image and additional content here.
-      </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Image Field at Top */}
@@ -94,7 +90,7 @@ const LogoForm = () => {
             value={logoData.content}
             onChange={(e) => setLogoData({ ...logoData, content: e.target.value })}
             placeholder="e.g., My Awesome Logo"
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            className="modern-input"
           />
         </div>
         <button

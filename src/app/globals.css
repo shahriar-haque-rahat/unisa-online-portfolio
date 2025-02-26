@@ -3,24 +3,127 @@
 @tailwind utilities;
 
 :root {
-    --primary: #3c87ff;
-    --secondary: #106afc;
-    --cancelPrimary: #FF4545;
-    --cancelSecondary: #fc1818;
+  --primary: #3c87ff;
+  --secondary: #106afc;
+  --cancelPrimary: #FF4545;
+  --cancelSecondary: #fc1818;
+}
+
+.modern-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  /* neutral light gray border */
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: #374151;
+  /* slate text */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  /* blue highlight on focus */
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transform: scale(1.02);
+}
+
+/* Container for responsive table */
+.modern-table-container {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  border-radius: 8px;
+  /* Rounded corners for container */
+  border: 1px solid #e5e7eb;
+  /* Optional border for definition */
+}
+
+/* Modern table styling */
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+}
+
+/* Table header and cell styles */
+.modern-table-th,
+.modern-table-td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Header background and text */
+.modern-table-th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Cell text color */
+.modern-table-td {
+  color: #4b5563;
+}
+
+/* Hover effect for rows */
+.modern-table-tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* Image styling in table cells */
+.modern-table-img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Action button styles with initial colors */
+.modern-edit-btn,
+.modern-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Set initial colors for the buttons */
+.modern-edit-btn {
+  color: var(--primary);
+}
+
+.modern-delete-btn {
+  color: var(--cancelPrimary);
+}
+
+/* Hover effects for buttons */
+.modern-edit-btn:hover {
+  transform: scale(1.1);
+  color: var(--secondary);
+}
+
+.modern-delete-btn:hover {
+  transform: scale(1.1);
+  color: var(--cancelSecondary);
 }
 
 /* Custom Scrollbar Styling */
 ::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
-    /* Use your primary color here */
-    border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-    /* Optional: Set track background */
-  }
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  /* Use your primary color here */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  /* Optional: Set track background */
+}

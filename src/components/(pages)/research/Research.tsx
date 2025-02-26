@@ -10,8 +10,8 @@ const truncateText = (text: string, wordLimit: number): string => {
     return words.slice(0, wordLimit).join(' ') + '...';
 };
 
-const handleDetails = () => {
-    console.log("SHOW MORE clicked");
+const handleDetails = (link: string) => {
+    window.open(link, '_blank');
 };
 
 const Project = ({ data }: any) => {
@@ -39,7 +39,7 @@ const Project = ({ data }: any) => {
                                                 {research.title}
                                             </h3>
                                             <p className="text-sm mb-3 min-h-20">{truncatedText}</p>
-                                            <SecondaryButton className="text-sm" onClick={handleDetails}>
+                                            <SecondaryButton className="text-sm" onClick={() => handleDetails(research.link)}>
                                                 SHOW MORE
                                             </SecondaryButton>
                                         </div>

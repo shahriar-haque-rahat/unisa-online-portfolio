@@ -24,9 +24,9 @@ const Publication = ({ data }: any) => {
     // Decide which data to show based on activeTab
     const dataToShow = activeTab === 'journal' ? data.journalData : data.conferenceData;
 
-    const handleDoi = () => {
-        console.log("Details")
-    }
+    const handleDoi = (link: string) => {
+        window.open(link, '_blank');
+    };
 
     return (
         <>
@@ -102,7 +102,7 @@ const Publication = ({ data }: any) => {
                                                 </p>
                                             </div>
                                             <div className=' w-full flex justify-end'>
-                                                <PrimaryButton onClick={handleDoi} className="text-lg">
+                                                <PrimaryButton onClick={() => handleDoi(item.link)} className="text-lg">
                                                     DOI
                                                 </PrimaryButton>
                                             </div>
