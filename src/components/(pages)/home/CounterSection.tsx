@@ -1,8 +1,9 @@
 'use client'
 
 import React from 'react';
+import CountUp from 'react-countup';
 
-const CounterSection = ({data}: any) => {
+const CounterSection = ({ data }: any) => {
     return (
         <section className="bg-primary text-white py-10 shadow-md">
             <div className="container mx-auto px-4">
@@ -18,7 +19,9 @@ const CounterSection = ({data}: any) => {
                             key={counter.id}
                             className="flex flex-col items-center justify-center bg-white bg-opacity-10 p-4 rounded-lg"
                         >
-                            <h3 className="text-2xl font-semibold">{counter.value}+</h3>
+                            <h3 className="text-2xl font-semibold">
+                                <CountUp end={counter.value} duration={2} />+
+                            </h3>
                             <p className="mt-2 text-sm">{counter.title}</p>
                         </div>
                     ))}

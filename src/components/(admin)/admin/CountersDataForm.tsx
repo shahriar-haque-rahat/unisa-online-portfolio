@@ -4,7 +4,6 @@ import JsonEditor from "./tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
-import CountUp from "react-countup";
 
 const CountersDataForm = () => {
   const [counters, setCounters] = useState([]);
@@ -113,15 +112,7 @@ const CountersDataForm = () => {
             {counters.map((item: any) => (
               <tr key={item.id} className="modern-table-tr">
                 <td className="modern-table-td">{item.title}</td>
-                <td className="modern-table-td">
-                  <CountUp
-                    start={0}
-                    end={item.value}
-                    duration={1.5}
-                    // Use redraw so that if the value changes, it animates again.
-                    redraw={true}
-                  />
-                </td>
+                <td className="modern-table-td">{item.value}</td>
                 <td className="modern-table-td">
                   <button
                     onClick={() => handleEdit(item)}
