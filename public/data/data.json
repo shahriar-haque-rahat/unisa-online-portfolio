@@ -149,11 +149,7 @@
       "author": "Alice Johnson",
       "timestamp": "2025-02-22 11:00 AM",
       "content": "Our research team has made a significant breakthrough in renewable energy technology. This innovation could pave the way for more sustainable energy solutions worldwide.",
-      "imageSrc": [
-        "/images/dummy-image-2.png",
-        "/uploads/1740562550007-images.jpg",
-        "/uploads/1740562550007-images.jpg"
-      ]
+      "imageSrc": []
     },
     {
       "id": "1740512864854595",
@@ -200,6 +196,13 @@
       "content": "In sed ratione illo ",
       "imageSrc": [
         "/uploads/1740520668799-logo.jpeg",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
+        "/uploads/1740520673888-unnamed.png",
         "/uploads/1740520673888-unnamed.png",
         "/uploads/1740520678083-unnamed.png"
       ]

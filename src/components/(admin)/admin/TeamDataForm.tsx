@@ -142,7 +142,6 @@ const TeamDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block font-medium text-gray-700 mb-1">Category</label>
@@ -200,7 +199,11 @@ const TeamDataForm = () => {
                   onUpload={(url) => handleMemberChange(index, "image", url)}
                 />
                 {member.image && typeof member.image === "string" && (
-                  <img src={member.image} alt="Member" className="w-16 h-16 mt-3 object-cover rounded border" />
+                  <img
+                    src={member.image}
+                    alt="Member"
+                    className="w-16 h-16 mt-3 object-cover rounded border"
+                  />
                 )}
 
                 <button
@@ -233,10 +236,11 @@ const TeamDataForm = () => {
       </form>
 
       {/* Responsive Table Container */}
-      <div className="modern-table-container">
+      <div className="modern-table-container mt-6">
         <table className="modern-table">
           <thead>
             <tr className="modern-table-tr">
+              <th className="min-w-32 modern-table-th">Image</th>
               <th className="min-w-32 modern-table-th">Category</th>
               <th className="min-w-56 modern-table-th">Members</th>
               <th className="min-w-28 modern-table-th">Actions</th>
@@ -245,6 +249,21 @@ const TeamDataForm = () => {
           <tbody>
             {teamData.map((item: any, idx: number) => (
               <tr key={item.id || idx} className="text-center">
+                <td className="modern-table-td">
+                  {item.members?.map((m: any, i: number) => (
+                    <div key={i} className="my-1">
+                      {m.image ? (
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          className="w-16 h-16 object-cover rounded border inline-block"
+                        />
+                      ) : (
+                        "No Image"
+                      )}
+                    </div>
+                  ))}
+                </td>
                 <td className="modern-table-td">{item.category}</td>
                 <td className="modern-table-td">
                   {item.members?.map((m: any, i: number) => (
@@ -254,16 +273,10 @@ const TeamDataForm = () => {
                   ))}
                 </td>
                 <td className="modern-table-td">
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="modern-edit-btn"
-                  >
+                  <button onClick={() => handleEdit(item)} className="modern-edit-btn">
                     <MdEditSquare size={22} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="modern-delete-btn"
-                  >
+                  <button onClick={() => handleDelete(item.id)} className="modern-delete-btn">
                     <MdDeleteForever size={24} />
                   </button>
                 </td>
@@ -271,7 +284,7 @@ const TeamDataForm = () => {
             ))}
             {teamData.length === 0 && (
               <tr>
-                <td colSpan={3} className="modern-table-td text-center">
+                <td colSpan={4} className="modern-table-td text-center">
                   No team data added.
                 </td>
               </tr>
@@ -279,7 +292,7 @@ const TeamDataForm = () => {
           </tbody>
         </table>
       </div>
-    </motion.div >
+    </motion.div>
   );
 };
 

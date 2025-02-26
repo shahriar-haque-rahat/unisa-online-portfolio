@@ -7,8 +7,7 @@ import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
 const NewsDataForm = () => {
-  const [news, setNews] = useState([]);
-  // imageSrc is an array of URLs
+  const [news, setNews] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -16,9 +15,8 @@ const NewsDataForm = () => {
     content: "",
     imageSrc: [] as string[],
   });
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  // Use a single ImageUploader for adding one image at a time
   const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
 
   const fetchData = async () => {
@@ -35,7 +33,6 @@ const NewsDataForm = () => {
     fetchData();
   }, []);
 
-  // Function to handle adding a new image from the uploader
   const handleAddImage = async () => {
     if (uploaderRef.current) {
       try {
@@ -52,19 +49,40 @@ const NewsDataForm = () => {
     }
   };
 
+  // Remove image from form state and call the API to delete the file from the server
+  const handleRemoveImage = async (index: number) => {
+    const imageToRemove = formData.imageSrc[index];
+    // Update UI immediately
+    const updatedImages = formData.imageSrc.filter((_, i) => i !== index);
+    setFormData({ ...formData, imageSrc: updatedImages });
+
+    // Call the API to remove the image file from the server
+    try {
+      const res = await fetch("/api/upload", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageUrl: imageToRemove }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete image on server");
+      }
+      toast.success("Image removed successfully!");
+    } catch (err) {
+      console.error("Error deleting image:", err);
+      toast.error("Failed to delete image from server.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Start with the existing image URLs from the form.
+    // Always attempt to upload a new image (if any)
     let imageUrls = formData.imageSrc;
-
-    // Always attempt to upload a new image.
     if (uploaderRef.current) {
       try {
         const newImageUrl = await uploaderRef.current.uploadImage();
         if (newImageUrl) {
-          // Append the new URL to the array.
           imageUrls = [...imageUrls, newImageUrl];
           console.log("Uploader returned new URL:", newImageUrl);
         } else {
@@ -74,7 +92,7 @@ const NewsDataForm = () => {
         console.error("Image upload failed:", err);
         toast.error("Image upload failed. Please try again.");
         setLoading(false);
-        return; // Halt submission if image upload fails
+        return;
       }
     }
 
@@ -122,7 +140,6 @@ const NewsDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block font-medium text-gray-700 mb-1">Images</label>
@@ -130,10 +147,16 @@ const NewsDataForm = () => {
             {formData.imageSrc.map((img, index) => (
               <div key={index} className="relative">
                 <img src={img} alt="News" className="w-20 h-20 object-cover rounded border" />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                >
+                  <MdDeleteForever size={14} />
+                </button>
               </div>
             ))}
           </div>
-          {/* Single ImageUploader for adding one image at a time */}
           <ImageUploader ref={uploaderRef} />
           <button
             type="button"
@@ -143,7 +166,7 @@ const NewsDataForm = () => {
             Upload Image
           </button>
         </div>
-        <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
             placeholder="Title"
@@ -176,7 +199,6 @@ const NewsDataForm = () => {
           className="modern-input"
           required
         />
-
         <button
           type="submit"
           disabled={loading}
@@ -186,12 +208,12 @@ const NewsDataForm = () => {
         </button>
       </form>
 
-      {/* Responsive Table Container */}
-      <div className="modern-table-container">
-        <table className="modern-table">
+      {/* Table View */}
+      <div className="modern-table-container mt-8">
+        <table className="modern-table w-full">
           <thead>
             <tr className="modern-table-tr">
-              <th className="min-w-32 modern-table-th">Image</th>
+              <th className="min-w-32 modern-table-th">Images</th>
               <th className="min-w-32 modern-table-th">Title</th>
               <th className="min-w-32 modern-table-th">Author</th>
               <th className="min-w-32 modern-table-th">Timestamp</th>
@@ -199,27 +221,29 @@ const NewsDataForm = () => {
             </tr>
           </thead>
           <tbody>
-            {news.map((item: any) => (
+            {news.map((item) => (
               <tr key={item.id} className="modern-table-tr">
                 <td className="modern-table-td">
-                  {item.imageSrc && (
-                    <img src={item.imageSrc} alt="Project" className="w-16 h-16 mx-auto object-cover rounded" />
-                  )}
+                  <div className="grid grid-cols-3 gap-2">
+                    {item.imageSrc &&
+                      item.imageSrc.map((img: string, idx: number) => (
+                        <img
+                          key={idx}
+                          src={img}
+                          alt="News Thumbnail"
+                          className="w-12 h-12 object-cover rounded border"
+                        />
+                      ))}
+                  </div>
                 </td>
                 <td className="modern-table-td">{item.title}</td>
                 <td className="modern-table-td">{item.author}</td>
                 <td className="modern-table-td">{item.timestamp}</td>
                 <td className="modern-table-td">
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="modern-edit-btn"
-                  >
+                  <button onClick={() => handleEdit(item)} className="modern-edit-btn">
                     <MdEditSquare size={22} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="modern-delete-btn"
-                  >
+                  <button onClick={() => handleDelete(item.id)} className="modern-delete-btn">
                     <MdDeleteForever size={24} />
                   </button>
                 </td>
@@ -227,7 +251,7 @@ const NewsDataForm = () => {
             ))}
             {news.length === 0 && (
               <tr>
-                <td colSpan={4} className="modern-table-td text-center">
+                <td colSpan={5} className="modern-table-td text-center">
                   No news entries added.
                 </td>
               </tr>

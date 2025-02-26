@@ -45,3 +45,21 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Upload failed." }, { status: 500 });
     }
 }
+
+export async function DELETE(req: NextRequest) {
+    try {
+        const { imageUrl } = await req.json();
+        console.log("Requested imageUrl:", imageUrl);
+
+        const relativePath = imageUrl.startsWith("/") ? imageUrl.slice(1) : imageUrl;
+        const filePath = path.join(process.cwd(), "public", relativePath);
+        console.log("Deleting file at:", filePath);
+
+        await fs.unlink(filePath);
+
+        return NextResponse.json({ message: "Image deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting image:", error);
+        return NextResponse.json({ message: "Failed to delete image." }, { status: 500 });
+    }
+}
