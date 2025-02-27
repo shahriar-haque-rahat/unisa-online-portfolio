@@ -10,7 +10,7 @@ const ResearchSection = ({ data }: any) => {
     };
     
     return (
-        <div className=" flex flex-wrap justify-center lg:justify-between gap-6 lg:gap-0">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 justify-center lg:justify-between gap-6">
             {data.researchData.slice(0, 2).map((research: any) => {
                 const truncatedText = research.description.split(" ").slice(0, 20).join(" ") + "...";
 

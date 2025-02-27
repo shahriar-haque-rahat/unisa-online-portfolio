@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import FullScreenLoading from "@/components/shared/Loading/FullScreenLoading";
 
-// file system image saving components
 import BannerDataForm from "@/components/(admin)/(filesystem)/BannerDataForm";
 import ContactInfoForm from "@/components/(admin)/(filesystem)/ContactInfoForm";
 import SocialLinksForm from "@/components/(admin)/(filesystem)/SocialLinksForm";
@@ -16,19 +15,6 @@ import JournalDataForm from "@/components/(admin)/(filesystem)/JournalDataForm";
 import ConferenceDataForm from "@/components/(admin)/(filesystem)/ConferenceDataForm";
 import ResearchDataForm from "@/components/(admin)/(filesystem)/ResearchDataForm";
 import LogoForm from "@/components/(admin)/(filesystem)/LogoForm";
-
-// edgestore image saving components
-// import BannerDataForm from "@/components/(admin)/(edgestore)/BannerDataForm";
-// import ContactInfoForm from "@/components/(admin)/(edgestore)/ContactInfoForm";
-// import SocialLinksForm from "@/components/(admin)/(edgestore)/SocialLinksForm";
-// import TeamDataForm from "@/components/(admin)/(edgestore)/TeamDataForm";
-// import ProjectDataForm from "@/components/(admin)/(edgestore)/ProjectDataForm";
-// import NewsDataForm from "@/components/(admin)/(edgestore)/NewsDataForm";
-// import JournalDataForm from "@/components/(admin)/(edgestore)/JournalDataForm";
-// import ConferenceDataForm from "@/components/(admin)/(edgestore)/ConferenceDataForm";
-// import ResearchDataForm from "@/components/(admin)/(edgestore)/ResearchDataForm";
-// import LogoForm from "@/components/(admin)/(edgestore)/LogoForm";
-
 import { MdLogout } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import CountersDataForm from "@/components/(admin)/(filesystem)/CountersDataForm";
@@ -126,8 +112,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
                             <li
                                 key={tab.key}
                                 className={`px-6 h-10 cursor-pointer transition-all duration-200 ease-in-out ${currentTab === tab.key
-                                    ? "font-bold text-xl text-primary"
-                                    : "text-gray-700 hover:text-xl hover:font-medium"
+                                        ? "font-bold text-xl text-primary"
+                                        : "text-gray-700 hover:text-xl hover:font-medium"
                                     }`}
                                 onClick={() => {
                                     setCurrentTab(tab.key);

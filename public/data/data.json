@@ -1,26 +1,26 @@
 {
   "logo": {
-    "image": "https://files.edgestore.dev/xqaa88dn9938ynpx/publicFiles/_public/a154f965-5207-44ad-9193-701e849185f7.jpg",
+    "image": "/uploads/1740648430338-download.jpg",
     "content": "Logo"
   },
   "contactInfo": [
     {
       "id": "1740511991100525",
       "label": "Address",
-      "value": "1234 Demo, TX 56789, Australia",
+      "value": "1234 University Ave, Sydney, NSW 2000, Australia",
       "link": ""
     },
     {
       "id": "1740511993504156",
       "label": "Phone",
-      "value": "+61-4-1234 5678",
-      "link": "tel:+61412345678"
+      "value": "+61-2-9876 5432",
+      "link": "tel:+61298765432"
     },
     {
       "id": "1740511996449343",
       "label": "Email",
-      "value": "abdullahi.chowdhury@gmail.com",
-      "link": "mailto:abdullahi.chowdhury@gmail.com"
+      "value": "info@udst.edu.au",
+      "link": "mailto:info@udst.edu.au"
     }
   ],
   "socialLinks": [
@@ -48,75 +48,76 @@
   "bannerData": [
     {
       "id": "1740511938658106",
-      "image": "/uploads/1740521593291-logo.jpeg",
-      "title": "Professional Design",
-      "description": "Crafting engaging and modern designs for your portfolio."
+      "image": "/uploads/1740649015639-images.jpg",
+      "title": "Innovative Curriculum",
+      "description": "Empowering students with a curriculum that integrates theory and practice for real-world success."
     },
     {
       "id": "1740511969044283",
-      "image": "/uploads/1740521604467-Untitled-design-48-300x300.png",
-      "title": "Responsive Layout",
-      "description": "Built with Tailwind CSS for a fully responsive experience."
+      "image": "/uploads/1740649024698-images.jpg",
+      "title": "Modern Campus",
+      "description": "Experience a state-of-the-art campus equipped with cutting-edge facilities and learning spaces."
     },
     {
       "id": "1740511971855297",
-      "image": "/uploads/1740521614915-Untitled-design-51-1-300x300.png",
-      "title": "Smooth Animations",
-      "description": "Enhanced with Framer Motion for seamless slide transitions."
+      "image": "/uploads/1740649031218-download.jpg",
+      "title": "Global Opportunities",
+      "description": "Join international collaborations and expand your horizons with our global academic partnerships."
     }
   ],
   "countersData": [
     {
       "id": 1,
       "title": "Research Publications",
-      "value": 30
+      "value": 120
     },
     {
       "id": 2,
       "title": "Citations",
-      "value": 500
+      "value": 2500
     },
     {
       "id": 3,
       "title": "Research Funding",
-      "value": 17200
+      "value": 1500000
     },
     {
       "id": 4,
       "title": "International Collaborations",
-      "value": 12
+      "value": 35
     },
     {
       "id": 5,
       "title": "Best Paper Awards",
-      "value": 4
+      "value": 10
     },
     {
       "id": 6,
       "title": "Industry Experience",
-      "value": 10
+      "value": 25
     }
   ],
   "newsData": [
     {
       "id": 1,
       "title": "Exciting New Initiative Launched",
-      "author": "Jane Doe",
+      "author": "Dr. Jane Williams",
       "timestamp": "2025-02-24 09:15 AM",
-      "content": "We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!We're excited to announce a new initiative that will help students connect and collaborate on innovative projects. Stay tuned for more updates!",
+      "content": "We are excited to announce a new initiative aimed at fostering interdisciplinary research and innovation across campus. Stay tuned for upcoming collaborations and events!",
       "imageSrc": [
-        "/images/dummy-image-2.png"
+        "/uploads/1740648430338-download.jpg",
+        "/uploads/1740648430338-download.jpg",
+        "/uploads/1740648430338-download.jpg"
       ]
     },
     {
       "id": 2,
       "title": "Campus Update: New Facilities",
-      "author": "John Smith",
+      "author": "Prof. John Smith",
       "timestamp": "2025-02-23 03:30 PM",
-      "content": "Our campus is growing! We have recently opened new state-of-the-art facilities that provide students with the resources needed to excel academically.",
+      "content": "Our campus is proud to unveil newly renovated research labs and student centers, designed to enhance learning and innovation.",
       "imageSrc": [
-        "/uploads/1740562550007-images.jpg",
-        "/uploads/1740562550007-images.jpg"
+        "/uploads/1740648430338-download.jpg"
       ]
     },
     {
@@ -124,63 +125,28 @@
       "title": "Research Breakthrough in Renewable Energy",
       "author": "Alice Johnson",
       "timestamp": "2025-02-22 11:00 AM",
-      "content": "Our research team has made a significant breakthrough in renewable energy technology. This innovation could pave the way for more sustainable energy solutions worldwide.",
-      "imageSrc": []
-    },
-    {
-      "id": "1740512864854595",
-      "title": "a",
-      "author": "a",
-      "timestamp": "a",
-      "content": "a",
+      "content": "Our research team at UDST has developed a breakthrough in renewable energy storage solutions, promising a greener future for all.",
       "imageSrc": [
-        "/uploads/1740512861924-Untitled-design-48-300x300.png"
-      ]
-    },
-    {
-      "id": "1740513833432628",
-      "title": "a",
-      "author": "a",
-      "timestamp": "a",
-      "content": "a",
-      "imageSrc": [
-        "/uploads/1740513823403-Untitled-design-48-300x300.png",
-        "/uploads/1740513831041-unnamed.png"
+        "/uploads/1740648430338-download.jpg",
+        "/uploads/1740648430338-download.jpg"
       ]
     },
     {
       "id": "1740517505236163",
-      "title": "Pariatur Magnam qua",
-      "author": "Iste dicta ab dolor ",
-      "timestamp": "Eiusmod sapiente et ",
-      "content": "Temporibus reprehend",
+      "title": "Community Outreach Program Announced",
+      "author": "Emily Davis",
+      "timestamp": "2025-02-21 10:00 AM",
+      "content": "UDST announces a new community outreach initiative designed to bridge the gap between academia and local communities. Join us in making a positive impact.",
       "imageSrc": []
     },
     {
       "id": "1740520040941179",
-      "title": "Ut nesciunt nisi qu",
-      "author": "Ex in incididunt opt",
-      "timestamp": "Sint a recusandae Q",
-      "content": "Debitis enim hic eos",
-      "imageSrc": []
-    },
-    {
-      "id": "1740520678271868",
-      "title": "Voluptatem Praesent",
-      "author": "In necessitatibus po",
-      "timestamp": "Qui corporis cumque ",
-      "content": "In sed ratione illo ",
+      "title": "Alumni Success Story: Innovating the Future",
+      "author": "Michael Brown",
+      "timestamp": "2025-02-20 02:30 PM",
+      "content": "Our alumni continue to excel in their fields. Read about how a recent graduate is revolutionizing sustainable technology.",
       "imageSrc": [
-        "/uploads/1740520668799-logo.jpeg",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520673888-unnamed.png",
-        "/uploads/1740520678083-unnamed.png"
+        "/uploads/1740648430338-download.jpg"
       ]
     }
   ],
@@ -188,271 +154,265 @@
     {
       "id": 1,
       "title": "Academic Awards",
-      "description": "UDST offers opportunities to students to receive a number of academic awards. The academic awards do not require an application and are determined based on academic performance in terms of students’ weighted averages. Some academic awards are determined based on academic performance coupled with other specific criteria such as contribution to university life, faculty recommendation, etc. Full information about academic awards is available at the Admissions & Registration Directorate.",
-      "imageSrc": "/uploads/1740520875204-Untitled-design-48-300x300.png",
+      "description": "UDST offers a range of academic awards recognizing excellence in scholarly achievements, leadership, and community involvement.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": 2,
       "title": "Research Opportunities",
-      "description": "UDST provides various research opportunities for students across multiple disciplines. These opportunities help students develop critical research skills and contribute to academic progress. Full details about research programs are available through the Research and Development Office.",
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "description": "Explore diverse research opportunities across disciplines, supported by world-class facilities and expert mentorship.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": 3,
       "title": "Scholarship Programs",
-      "description": "UDST offers multiple scholarship programs for deserving students. These programs are designed to reward academic excellence and to support students in financial need. Learn more about how you can apply for a scholarship today.",
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "description": "Our scholarship programs provide financial support and academic guidance to deserving students.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": 4,
       "title": "Student Exchange",
-      "description": "UDST has partnerships with universities around the world, providing students with opportunities for exchange programs. Broaden your horizons by studying abroad while earning credits towards your UDST degree.",
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "description": "Participate in our student exchange programs and gain global exposure by studying at partner universities worldwide.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": 5,
       "title": "Internship Programs",
-      "description": "UDST partners with leading companies in various industries to provide internship opportunities. Gain real-world experience and boost your resume before graduation.",
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "description": "Gain hands-on experience with industry-leading companies through our comprehensive internship programs.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": "1740517492731220",
-      "title": "Id dicta ut nemo nos",
-      "description": "Consequuntur magnam ",
-      "imageSrc": null,
+      "title": "Community Engagement",
+      "description": "Participate in initiatives that connect students with local community projects and volunteer opportunities.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": "1740520030028977",
-      "title": "Cillum ut magna pari",
-      "description": "Voluptas voluptatem ",
-      "buttonLabel": "",
-      "imageSrc": null,
+      "title": "Innovation Hub",
+      "description": "A collaborative space where students develop cutting-edge solutions and start-ups.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": "1740520864607716",
-      "title": "Vel id inventore co",
-      "description": "Similique eum duis q",
-      "imageSrc": "/uploads/1740520864397-unnamed.png",
+      "title": "Entrepreneurship Program",
+      "description": "Learn from industry experts and develop your own start-up ideas in our dynamic entrepreneurship program.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "link": "http://dummy.com"
     },
     {
       "id": "1740562615410362",
-      "title": "Et commodi pariatur",
+      "title": "Sustainability Initiatives",
       "link": "Dolor autem aut dese",
-      "description": "Autem adipisci elige",
+      "description": "Explore projects that promote environmental sustainability and social responsibility across campus.",
       "buttonLabel": "",
-      "imageSrc": "/uploads/1740562615392-images.jpg"
+      "imageSrc": "/uploads/1740648430338-download.jpg"
     },
     {
       "id": "1740562647806435",
-      "title": "Corrupti et assumen",
+      "title": "Tech Advancement Workshop",
       "link": "Quia excepteur totam",
-      "description": "Omnis quia id nobis ",
+      "description": "Join workshops that foster technological innovation and professional growth.",
       "buttonLabel": "",
-      "imageSrc": "/uploads/1740562647797-rahat.jpg"
+      "imageSrc": "/uploads/1740648430338-download.jpg"
     }
   ],
   "journalData": [
     {
       "id": 1,
-      "imageSrc": "/uploads/1740520539339-unnamed.png",
+      "imageSrc": "/uploads/1740649163088-download.jpg",
       "title": "Request Letters and Records",
       "authors": "Andrew Balch, Maria A, Cardei, Afsaneh Doryab",
       "publicationDate": "17 Oct 2024",
-      "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
+      "description": "Request official letters and records such as diplomas, transcripts, and certificates for academic and professional use.",
       "link": "/link"
     },
     {
       "id": 2,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740649169603-download.jpg",
       "title": "Transcript Requests",
       "authors": "Jason Donald Chin, Matthew Clark, Afsaneh Doryab",
       "publicationDate": "20 Feb 2024",
-      "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+      "description": "Easily request your official academic transcripts for further studies or career opportunities.",
       "link": "/link"
     },
     {
       "id": 3,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740649175581-download.png",
       "title": "Name Change Requests",
       "authors": "John Doe, Jane Smith",
       "publicationDate": "10 Mar 2024",
-      "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+      "description": "Submit a formal request for name changes in your academic records with the required documentation.",
       "link": "/link"
     },
     {
       "id": 4,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740649183169-images.jpg",
       "title": "Additional Records Requests",
       "authors": "Chris Evans, Morgan Lee",
       "publicationDate": "05 Apr 2024",
-      "description": "Find out how to request other official documents to maintain your records accurately, including forms for various administrative needs.",
+      "description": "Request additional academic records or forms to support your administrative needs.",
       "link": "/link"
     },
     {
-      "id": "1740513852374436",
-      "imageSrc": "/uploads/1740513898195-unnamed.png",
-      "title": "a",
-      "authors": "aasda",
-      "publicationDate": "asd",
-      "description": "a",
-      "link": "a"
-    },
-    {
       "id": "1740517527164365",
-      "imageSrc": null,
-      "title": "Dolores et qui sint ",
+      "imageSrc": "/uploads/1740649189928-download.jpg",
+      "title": "Campus Policies Update",
       "authors": "Sunt fugiat sequi si",
       "publicationDate": "Amet voluptatem es",
-      "description": "Ad dignissimos quo s",
+      "description": "Review the latest updates to our campus policies and administrative guidelines.",
       "link": "Quis itaque porro qu"
-    },
-    {
-      "id": "1740520059471456",
-      "imageSrc": null,
-      "title": "Maiores ex eu omnis ",
-      "authors": "Expedita rerum labor",
-      "publicationDate": "Esse ducimus volupt",
-      "description": "Sit vitae voluptate",
-      "link": "Voluptatem Aut qui "
-    },
-    {
-      "id": "1740520528193585",
-      "imageSrc": "/uploads/1740520528000-logo.jpeg",
-      "title": "Odio sed eu fuga Ve",
-      "authors": "Voluptas sed nihil a",
-      "publicationDate": "Dolores lorem dolori",
-      "description": "Et earum repellendus",
-      "link": "Aliquam dolore verit"
     }
   ],
   "conferenceData": [
     {
       "id": 1,
-      "imageSrc": "/uploads/1740520407532-unnamed.png",
+      "imageSrc": "/uploads/1740649217033-download.jpg",
       "title": "Request Letters and Records - Conference Edition",
       "authors": "Alice Brown, Bob White",
       "publicationDate": "17 Oct 2023",
-      "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Keep your records accurate and up-to-date.",
+      "description": "Join industry experts and academics to discuss best practices in managing academic records and documentation.",
       "link": "/link"
     },
     {
       "id": 2,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740649224489-download.png",
       "title": "Transcript Requests - Seminar",
       "authors": "Dr. Transcript, Ms. Request",
       "publicationDate": "20 Nov 2023",
-      "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+      "description": "Learn the latest trends in academic record-keeping and transcript management from top professionals.",
       "link": "/link"
     },
     {
       "id": 3,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740649231354-download.png",
       "title": "Name Change Requests - Workshop",
       "authors": "John Appleseed, Lucy Orman",
       "publicationDate": "10 Dec 2023",
-      "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+      "description": "Participate in interactive sessions on updating and managing academic records efficiently.",
       "link": "/link"
     },
     {
-      "id": "1740513926617697",
-      "imageSrc": "/uploads/1740513945660-Untitled-design-48-300x300.png",
-      "title": "a",
-      "authors": "a",
-      "publicationDate": "ac",
-      "description": "ac",
-      "link": "ac"
-    },
-    {
       "id": "1740520068718419",
-      "imageSrc": null,
-      "title": "Et unde ex ad et ut ",
-      "authors": "Ipsa consectetur la",
-      "publicationDate": "Labore excepteur sus",
-      "description": "Elit eiusmod eum om",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
+      "title": "Sustainability in Academia Symposium",
+      "authors": "Dr. Helen Carter, Prof. Mark Thompson",
+      "publicationDate": "12 Feb 2025",
+      "description": "Exploring sustainable practices within academic institutions.",
       "link": "Cumque quia explicab"
     },
     {
       "id": "1740520076863838",
-      "imageSrc": null,
-      "title": "Repellendus Volupta",
-      "authors": "Nesciunt aut neque ",
-      "publicationDate": "In est et accusamus ",
-      "description": "In nemo assumenda si",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
+      "title": "Digital Learning Summit",
+      "authors": "Dr. Kevin Patel, Ms. Lisa Green",
+      "publicationDate": "18 Feb 2025",
+      "description": "Discussing the impact of digital technology on learning environments.",
       "link": "Est dicta cupiditate"
     },
     {
       "id": "1740520394417714",
-      "imageSrc": "/uploads/1740520394231-logo.jpeg",
-      "title": "Dolor pariatur Elit",
-      "authors": "Suscipit consectetur",
-      "publicationDate": "Ducimus sint occae",
-      "description": "Similique qui vero u",
-      "link": "http://dummy.com"
+      "imageSrc": "/uploads/1740649211490-download.png",
+      "title": "Innovation and Research Forum",
+      "authors": "Prof. Laura Kim, Dr. Samuel Wong",
+      "publicationDate": "25 Feb 2025",
+      "description": "A forum for discussing breakthrough innovations and research advancements.",
+      "link": "http://udst.edu.au/conference/innovation-research"
     }
   ],
   "researchData": [
     {
       "id": 1,
-      "imageSrc": "/uploads/1740520969452-logo.jpeg",
+      "imageSrc": "/uploads/1740649635974-download.png",
       "title": "Request Letters and Records",
-      "description": "As a UDST student, you may need certain letters or official documentation related to your student record and financial matters. Our services include requests for Diplomas/Certificates, graduation letters, name changes, and more. Keep your records accurate and up-to-date.",
+      "description": "An in-depth study on improving the efficiency of administrative document requests in higher education.",
       "publicationName": "Journal of University Services",
       "publicationDate": "January 15, 2023",
       "link": "http://dummy.com"
     },
     {
       "id": 2,
-      "imageSrc": "/uploads/1740520978113-Untitled-design-51-1-300x300.png",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "title": "Transcript Requests",
-      "description": "Need your official transcripts for your academic progress? We facilitate easy and quick transcript requests to support your academic or career goals.",
+      "description": "Analyzing the impact of streamlined transcript request processes on student outcomes.",
       "publicationName": "Transcript Studies Quarterly",
       "publicationDate": "February 20, 2023",
       "link": "http://dummy.com"
     },
     {
       "id": 3,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
       "title": "Name Change Requests",
-      "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+      "description": "Exploring the challenges and solutions in managing academic record updates.",
       "publicationName": "Research Digest",
       "publicationDate": "March 10, 2023",
       "link": "http://dummy.com"
     },
     {
       "id": 4,
-      "imageSrc": "/uploads/1740562550007-images.jpg",
-      "title": "Name Change Requests",
-      "description": "Official name changes can be a necessary part of student documentation. Learn how to submit requests to keep your records updated.",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
+      "title": "Digital Records Management",
+      "description": "Innovative methods for updating and securing academic records.",
       "publicationName": "Academic Record Review",
       "publicationDate": "April 05, 2023",
       "link": "http://dummy.com"
     },
     {
       "id": "1740519963381545",
-      "imageSrc": null,
-      "title": "Nulla reiciendis sit",
-      "description": "Omnis omnis sit enim",
-      "publicationName": "Sunt molestiae et do",
-      "publicationDate": "Et ea aliquip numqua",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
+      "title": "Student Information Systems",
+      "description": "Evaluating the effectiveness of integrated student information systems in modern universities.",
+      "publicationName": "Higher Education Review",
+      "publicationDate": "May 01, 2023",
       "link": "http://dummy.com"
     },
     {
       "id": "1740520959843280",
-      "imageSrc": "/uploads/1740520959587-unnamed.png",
-      "title": "Illo qui commodo lab",
-      "description": "Ex debitis alias dol",
-      "publicationName": "Amet aliquid labori",
-      "publicationDate": "Molestiae voluptatem",
+      "imageSrc": "/uploads/1740648430338-download.jpg",
+      "title": "Advancements in Academic Administration",
+      "description": "A comprehensive review of recent advancements in academic administration technology.",
+      "publicationName": "Educational Management Journal",
+      "publicationDate": "June 15, 2023",
       "link": "http://dummy.com"
     }
   ],
-  "teamData": []
+  "teamData": [
+    {
+      "id": "1740648423226703",
+      "category": "Administration",
+      "members": [
+        {
+          "name": "Dr. Sarah Mitchell",
+          "university": "UDST",
+          "role": "Dean of Administration",
+          "image": "/uploads/1740648430338-download.jpg"
+        },
+        {
+          "name": "Mr. David Lee",
+          "university": "UDST",
+          "role": "Administrative Manager",
+          "image": "/uploads/1740648423196-download.png"
+        }
+      ]
+    },
+    {
+      "id": "1740648430365276",
+      "category": "Faculty",
+      "members": [
+        {
+          "name": "Prof. Amanda Carter",
+          "university": "UDST",
+          "role": "Professor of Engineering",
+          "image": "/uploads/1740648430338-download.jpg"
+        }
+      ]
+    }
+  ]
 }

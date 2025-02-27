@@ -5,7 +5,6 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import { Poppins } from '@next/font/google';
-import { EdgeStoreProvider } from "@/edgestore/edgestore";
 
 const font = Poppins({
   subsets: ['latin'],
@@ -24,16 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font} antialiased bg-gray-100`}>
-        <EdgeStoreProvider>
-          <SessionProvider>
-            <Navbar />
-            <div className=" max-w-[2560px] mx-auto mt-16">
-              {children}
-            </div>
-            <Footer />
-            <Toaster />
-          </SessionProvider>
-        </EdgeStoreProvider>
+        <SessionProvider>
+          <Navbar />
+          <div className=" max-w-[2560px] mx-auto mt-16">
+            {children}
+          </div>
+          <Footer />
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );
