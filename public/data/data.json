@@ -1,6 +1,6 @@
 {
   "logo": {
-    "image": "/uploads/1740565738678-images.jpg",
+    "image": "https://files.edgestore.dev/xqaa88dn9938ynpx/publicFiles/_public/a154f965-5207-44ad-9193-701e849185f7.jpg",
     "content": "Logo"
   },
   "contactInfo": [
@@ -63,30 +63,6 @@
       "image": "/uploads/1740521614915-Untitled-design-51-1-300x300.png",
       "title": "Smooth Animations",
       "description": "Enhanced with Framer Motion for seamless slide transitions."
-    },
-    {
-      "id": "1740520130861898",
-      "image": "/uploads/1740520130699-logo.jpeg",
-      "title": "Inventore sit conseq",
-      "description": "Maxime consectetur "
-    },
-    {
-      "id": "1740562579271111",
-      "image": "/uploads/1740562579249-images.jpg",
-      "title": "a",
-      "description": "a"
-    },
-    {
-      "id": "1740563391604533",
-      "image": "/uploads/1740563391577-images.jpg",
-      "title": "asdasd",
-      "description": "asdasdasd"
-    },
-    {
-      "id": "1740564340490460",
-      "image": "/uploads/1740564340404-rahat.jpg",
-      "title": "a",
-      "description": "a"
     }
   ],
   "countersData": [
@@ -478,36 +454,5 @@
       "link": "http://dummy.com"
     }
   ],
-  "teamData": [
-    {
-      "id": "1740521253987769",
-      "category": "Similique est ducimu",
-      "members": [
-        {
-          "name": "Exercitationem amet",
-          "university": "Earum anim eiusmod e",
-          "role": "Qui adipisicing cons",
-          "image": "/uploads/1740520673888-unnamed.png"
-        },
-        {
-          "name": "Saepe dolorem ab est",
-          "university": "Consectetur sequi ut",
-          "role": "Et dolores temporibu",
-          "image": "/uploads/1740520673888-unnamed.png"
-        }
-      ]
-    },
-    {
-      "id": "1740521279705932",
-      "category": "Similique sint aute ",
-      "members": [
-        {
-          "name": "Corporis quis magnam",
-          "university": "Ab est voluptatem ",
-          "role": "Necessitatibus ducim",
-          "image": null
-        }
-      ]
-    }
-  ]
+  "teamData": []
 }

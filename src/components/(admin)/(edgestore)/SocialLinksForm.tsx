@@ -1,23 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import JsonEditor from "./tools/JsonEditor";
+import React, { useState, useEffect } from "react";
+import JsonEditor from "../admin/tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
-const ContactInfoForm = () => {
-  const [contactInfo, setContactInfo] = useState([]);
-  const [formData, setFormData] = useState({ label: "", value: "", link: "" });
+const SocialLinksForm = () => {
+  const [socialLinks, setSocialLinks] = useState([]);
+  const [formData, setFormData] = useState({ name: "", path: "" });
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     try {
-      const data = await JsonEditor.getAll("contactInfo");
-      setContactInfo(data || []);
+      const data = await JsonEditor.getAll("socialLinks");
+      setSocialLinks(data || []);
     } catch (error) {
-      console.error("Error fetching contact info:", error);
-      toast.error("Failed to fetch contact info.");
+      console.error("Error fetching social links:", error);
+      toast.error("Failed to fetch social links.");
     }
   };
 
@@ -30,37 +30,37 @@ const ContactInfoForm = () => {
     setLoading(true);
     try {
       if (editingId) {
-        await JsonEditor.edit("contactInfo", editingId, formData);
-        toast.success("Contact updated successfully!");
+        await JsonEditor.edit("socialLinks", editingId, formData);
+        toast.success("Social link updated successfully!");
         setEditingId(null);
       } else {
-        await JsonEditor.add("contactInfo", formData);
-        toast.success("Contact added successfully!");
+        await JsonEditor.add("socialLinks", formData);
+        toast.success("Social link added successfully!");
       }
-      setFormData({ label: "", value: "", link: "" });
+      setFormData({ name: "", path: "" });
       fetchData();
     } catch (error) {
-      console.error("Error saving data:", error);
-      toast.error("Failed to save contact info.");
+      console.error("Error saving social link:", error);
+      toast.error("Failed to save social link.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleEdit = (item: any) => {
-    setFormData({ label: item.label, value: item.value, link: item.link || "" });
+    setFormData({ name: item.name, path: item.path });
     setEditingId(item.id);
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this entry?")) return;
+    if (!confirm("Are you sure you want to delete this social link?")) return;
     try {
-      await JsonEditor.delete("contactInfo", id);
-      toast.success("Contact deleted successfully!");
+      await JsonEditor.delete("socialLinks", id);
+      toast.success("Social link deleted successfully!");
       fetchData();
     } catch (error) {
-      console.error("Error deleting contact:", error);
-      toast.error("Failed to delete contact.");
+      console.error("Error deleting social link:", error);
+      toast.error("Failed to delete social link.");
     }
   };
 
@@ -75,26 +75,19 @@ const ContactInfoForm = () => {
         <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
-            placeholder="Label (e.g., Address, Phone)"
-            value={formData.label}
-            onChange={(e) => setFormData({ ...formData, label: e.target.value })}
+            placeholder="Name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="modern-input"
             required
           />
           <input
             type="text"
-            placeholder="Value"
-            value={formData.value}
-            onChange={(e) => setFormData({ ...formData, value: e.target.value })}
+            placeholder="Path (URL)"
+            value={formData.path}
+            onChange={(e) => setFormData({ ...formData, path: e.target.value })}
             className="modern-input"
             required
-          />
-          <input
-            type="text"
-            placeholder="Link (optional)"
-            value={formData.link}
-            onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-            className="modern-input"
           />
         </section>
         <button
@@ -102,7 +95,7 @@ const ContactInfoForm = () => {
           disabled={loading}
           className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
-          {editingId ? "Update Contact" : "Add Contact"}
+          {editingId ? "Update Social Link" : "Add Social Link"}
         </button>
       </form>
 
@@ -111,18 +104,16 @@ const ContactInfoForm = () => {
         <table className="modern-table">
           <thead>
             <tr className="modern-table-tr">
-              <th className="min-w-32 modern-table-th">Label</th>
-              <th className="min-w-32 modern-table-th">Value</th>
-              <th className="min-w-44 modern-table-th">Link</th>
+              <th className="min-w-32 modern-table-th">Name</th>
+              <th className="min-w-32 modern-table-th">Path</th>
               <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {contactInfo.map((item: any) => (
+            {socialLinks.map((item: any) => (
               <tr key={item.id} className="modern-table-tr">
-                <td className="modern-table-td">{item.label}</td>
-                <td className="modern-table-td">{item.value}</td>
-                <td className="modern-table-td">{item.link}</td>
+                <td className="modern-table-td">{item.name}</td>
+                <td className="modern-table-td">{item.path}</td>
                 <td className="modern-table-td">
                   <button
                     onClick={() => handleEdit(item)}
@@ -139,18 +130,18 @@ const ContactInfoForm = () => {
                 </td>
               </tr>
             ))}
-            {contactInfo.length === 0 && (
+            {socialLinks.length === 0 && (
               <tr>
-                <td colSpan={4} className="modern-table-td text-center">
-                  No contact info added.
+                <td colSpan={3} className="modern-table-td text-center">
+                  No social links added.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-    </motion.div >
+    </motion.div>
   );
 };
 
-export default ContactInfoForm;
+export default SocialLinksForm;

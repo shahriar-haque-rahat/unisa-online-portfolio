@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect, createRef, useRef } from "react";
-import JsonEditor from "./tools/JsonEditor";
-import ImageUploader from "./tools/ImageUploader";
+import JsonEditor from "../admin/tools/JsonEditor";
+import ImageUploaderEdgestore from "../admin/tools/ImageUploaderEdgestore";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+import { useEdgeStore } from "@/edgestore/edgestore";
 
 // Define a type for a team member.
 type TeamMember = {
@@ -26,11 +27,18 @@ const TeamDataForm = () => {
     category: "",
     members: [{ name: "", university: "", role: "", image: null }],
   });
+  // Store the original team members when editing for deletion comparison.
+  const [originalMembers, setOriginalMembers] = useState<TeamMember[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Refs for each member's ImageUploader.
-  const uploaderRefs = useRef<Array<React.RefObject<{ uploadImage: () => Promise<string | null> }>>>([]);
+  const uploaderRefs = useRef<
+    Array<React.RefObject<{ uploadImage: () => Promise<string | null> }>>
+  >([]);
+
+  // Get the Edgestore client.
+  const { edgestore } = useEdgeStore();
 
   const fetchData = async () => {
     try {
@@ -46,8 +54,12 @@ const TeamDataForm = () => {
     fetchData();
   }, []);
 
-  // Restrict field to keys of TeamMember.
-  const handleMemberChange = (index: number, field: keyof TeamMember, value: any) => {
+  // Update a member field in the form.
+  const handleMemberChange = (
+    index: number,
+    field: keyof TeamMember,
+    value: any
+  ) => {
     const newMembers = [...formData.members];
     newMembers[index][field] = value;
     setFormData({ ...formData, members: newMembers });
@@ -56,33 +68,53 @@ const TeamDataForm = () => {
   const addMemberField = () => {
     setFormData({
       ...formData,
-      members: [...formData.members, { name: "", university: "", role: "", image: null }],
+      members: [
+        ...formData.members,
+        { name: "", university: "", role: "", image: null },
+      ],
     });
+    // Add a new ref for the new member uploader.
+    uploaderRefs.current.push(createRef());
   };
 
-  const removeMemberField = (index: number) => {
+  const removeMemberField = async (index: number) => {
+    // If the member has an image (and it's a string), attempt to delete it from Edgestore.
+    const memberToRemove = formData.members[index];
+    if (memberToRemove.image && typeof memberToRemove.image === "string") {
+      try {
+        await edgestore.publicFiles.delete({ url: memberToRemove.image });
+        toast.success(`Deleted image for member ${index + 1}`);
+      } catch (error) {
+        console.error(`Failed to delete image for member ${index + 1}:`, error);
+        toast.error(`Failed to delete image for member ${index + 1}`);
+      }
+    }
     const newMembers = formData.members.filter((_, i) => i !== index);
     setFormData({ ...formData, members: newMembers });
     uploaderRefs.current.splice(index, 1);
   };
 
-  // For each member, call its uploader (if available) to get the URL before submission.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
+      // For each member, call its uploader (if available) to update the image.
       const updatedMembers = await Promise.all(
         formData.members.map(async (member, index) => {
-          let imageUrl = typeof member.image === "string" ? member.image : null;
+          let imageUrl =
+            typeof member.image === "string" ? member.image : null;
           const uploaderRef = uploaderRefs.current[index];
           if (uploaderRef && uploaderRef.current) {
             try {
               const newUrl = await uploaderRef.current.uploadImage();
               if (newUrl) {
                 imageUrl = newUrl;
-                console.log(`Uploader for member ${index} returned new URL:`, newUrl);
+                console.log(`Uploader for member ${index} returned:`, newUrl);
               } else {
-                console.log(`Uploader for member ${index} did not return a new URL; using existing:`, imageUrl);
+                console.log(
+                  `Uploader for member ${index} did not return a new URL; using existing:`,
+                  imageUrl
+                );
               }
             } catch (err) {
               toast.error(`Image upload failed for member ${index + 1}`);
@@ -97,12 +129,30 @@ const TeamDataForm = () => {
       if (editingId) {
         await JsonEditor.edit("teamData", editingId, dataToSubmit);
         toast.success("Team data updated successfully!");
+        // After editing, check each original member.
+        await Promise.all(
+          originalMembers.map(async (orig, index) => {
+            // If a member still exists at this index and its image has changed, delete the old image.
+            if (
+              orig.image &&
+              typeof orig.image === "string" &&
+              updatedMembers[index] &&
+              updatedMembers[index].image !== orig.image
+            ) {
+              try {
+                await edgestore.publicFiles.delete({ url: orig.image });
+                console.log(`Deleted old image for member ${index + 1}:`, orig.image);
+              } catch (err) {
+                console.error(`Failed to delete old image for member ${index + 1}:`, err);
+              }
+            }
+          })
+        );
         setEditingId(null);
       } else {
         await JsonEditor.add("teamData", dataToSubmit);
         toast.success("Team data added successfully!");
       }
-
       setFormData({
         category: "",
         members: [{ name: "", university: "", role: "", image: null }],
@@ -120,15 +170,34 @@ const TeamDataForm = () => {
   const handleEdit = (item: any) => {
     setFormData(item);
     setEditingId(item.id);
-    // Initialize uploaderRefs for each member in the item.
+    // Store original members for later comparison.
+    setOriginalMembers(item.members || []);
+    // Initialize uploaderRefs for each member.
     uploaderRefs.current = item.members.map(() => createRef());
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this team category?")) return;
     try {
+      // Find the team category to delete (to retrieve its member images)
+      const teamToDelete = teamData.find((item) => item.id === id);
       await JsonEditor.delete("teamData", id);
       toast.success("Team category deleted successfully!");
+      // Group deletion: delete all images associated with this team category.
+      if (teamToDelete?.members && Array.isArray(teamToDelete.members)) {
+        await Promise.all(
+          teamToDelete.members.map(async (member: TeamMember, i: number) => {
+            if (member.image && typeof member.image === "string") {
+              try {
+                await edgestore.publicFiles.delete({ url: member.image });
+                console.log(`Deleted image for member ${i + 1}:`, member.image);
+              } catch (error) {
+                console.error(`Failed to delete image for member ${i + 1}:`, error);
+              }
+            }
+          })
+        );
+      }
       fetchData();
     } catch (error) {
       console.error("Error deleting team data:", error);
@@ -149,7 +218,9 @@ const TeamDataForm = () => {
             type="text"
             placeholder="e.g., Primary Investigator, PhD Students"
             value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
             className="modern-input"
             required
           />
@@ -168,35 +239,49 @@ const TeamDataForm = () => {
                   type="text"
                   placeholder="Member Name"
                   value={member.name}
-                  onChange={(e) => handleMemberChange(index, "name", e.target.value)}
+                  onChange={(e) =>
+                    handleMemberChange(index, "name", e.target.value)
+                  }
                   className="modern-input mb-3"
                   required
                 />
 
-                <label className="block font-medium text-gray-700 mb-1">University</label>
+                <label className="block font-medium text-gray-700 mb-1">
+                  University
+                </label>
                 <input
                   type="text"
                   placeholder="Member University"
                   value={member.university}
-                  onChange={(e) => handleMemberChange(index, "university", e.target.value)}
+                  onChange={(e) =>
+                    handleMemberChange(index, "university", e.target.value)
+                  }
                   className="modern-input mb-3"
                   required
                 />
 
-                <label className="block font-medium text-gray-700 mb-1">Role</label>
+                <label className="block font-medium text-gray-700 mb-1">
+                  Role
+                </label>
                 <input
                   type="text"
                   placeholder="e.g., PhD Student"
                   value={member.role}
-                  onChange={(e) => handleMemberChange(index, "role", e.target.value)}
+                  onChange={(e) =>
+                    handleMemberChange(index, "role", e.target.value)
+                  }
                   className="modern-input mb-3"
                   required
                 />
 
-                <label className="block font-medium text-gray-700 mb-1">Image</label>
-                <ImageUploader
+                <label className="block font-medium text-gray-700 mb-1">
+                  Image
+                </label>
+                <ImageUploaderEdgestore
                   ref={uploaderRefs.current[index]}
-                  onUpload={(url) => handleMemberChange(index, "image", url)}
+                  onUpload={(url) =>
+                    handleMemberChange(index, "image", url)
+                  }
                 />
                 {member.image && typeof member.image === "string" && (
                   <img
@@ -273,10 +358,16 @@ const TeamDataForm = () => {
                   ))}
                 </td>
                 <td className="modern-table-td">
-                  <button onClick={() => handleEdit(item)} className="modern-edit-btn">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="modern-edit-btn"
+                  >
                     <MdEditSquare size={22} />
                   </button>
-                  <button onClick={() => handleDelete(item.id)} className="modern-delete-btn">
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="modern-delete-btn"
+                  >
                     <MdDeleteForever size={24} />
                   </button>
                 </td>

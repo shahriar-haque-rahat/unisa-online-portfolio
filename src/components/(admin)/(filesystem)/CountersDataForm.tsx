@@ -1,23 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import JsonEditor from "./tools/JsonEditor";
+import JsonEditor from "../admin/tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
-const SocialLinksForm = () => {
-  const [socialLinks, setSocialLinks] = useState([]);
-  const [formData, setFormData] = useState({ name: "", path: "" });
+const CountersDataForm = () => {
+  const [counters, setCounters] = useState([]);
+  const [formData, setFormData] = useState({ title: "", value: 0 });
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     try {
-      const data = await JsonEditor.getAll("socialLinks");
-      setSocialLinks(data || []);
+      const data = await JsonEditor.getAll("countersData");
+      setCounters(data || []);
     } catch (error) {
-      console.error("Error fetching social links:", error);
-      toast.error("Failed to fetch social links.");
+      console.error("Error fetching counters:", error);
+      toast.error("Failed to fetch counters data.");
     }
   };
 
@@ -30,37 +30,37 @@ const SocialLinksForm = () => {
     setLoading(true);
     try {
       if (editingId) {
-        await JsonEditor.edit("socialLinks", editingId, formData);
-        toast.success("Social link updated successfully!");
+        await JsonEditor.edit("countersData", editingId, formData);
+        toast.success("Counter updated successfully!");
         setEditingId(null);
       } else {
-        await JsonEditor.add("socialLinks", formData);
-        toast.success("Social link added successfully!");
+        await JsonEditor.add("countersData", formData);
+        toast.success("Counter added successfully!");
       }
-      setFormData({ name: "", path: "" });
+      setFormData({ title: "", value: 0 });
       fetchData();
     } catch (error) {
-      console.error("Error saving social link:", error);
-      toast.error("Failed to save social link.");
+      console.error("Error saving counter:", error);
+      toast.error("Failed to save counter.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleEdit = (item: any) => {
-    setFormData({ name: item.name, path: item.path });
+    setFormData({ title: item.title, value: item.value });
     setEditingId(item.id);
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this social link?")) return;
+    if (!confirm("Are you sure you want to delete this counter?")) return;
     try {
-      await JsonEditor.delete("socialLinks", id);
-      toast.success("Social link deleted successfully!");
+      await JsonEditor.delete("countersData", id);
+      toast.success("Counter deleted successfully!");
       fetchData();
     } catch (error) {
-      console.error("Error deleting social link:", error);
-      toast.error("Failed to delete social link.");
+      console.error("Error deleting counter:", error);
+      toast.error("Failed to delete counter.");
     }
   };
 
@@ -70,32 +70,31 @@ const SocialLinksForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-
       <form onSubmit={handleSubmit} className="space-y-5">
-        <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="modern-input"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Path (URL)"
-            value={formData.path}
-            onChange={(e) => setFormData({ ...formData, path: e.target.value })}
-            className="modern-input"
-            required
-          />
-        </section>
+        <input
+          type="text"
+          placeholder="Title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          className="modern-input"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Value"
+          value={formData.value}
+          onChange={(e) =>
+            setFormData({ ...formData, value: Number(e.target.value) })
+          }
+          className="modern-input"
+          required
+        />
         <button
           type="submit"
           disabled={loading}
           className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
         >
-          {editingId ? "Update Social Link" : "Add Social Link"}
+          {editingId ? "Update Counter" : "Add Counter"}
         </button>
       </form>
 
@@ -104,16 +103,16 @@ const SocialLinksForm = () => {
         <table className="modern-table">
           <thead>
             <tr className="modern-table-tr">
-              <th className="min-w-32 modern-table-th">Name</th>
-              <th className="min-w-32 modern-table-th">Path</th>
+              <th className="min-w-32 modern-table-th">Title</th>
+              <th className="min-w-32 modern-table-th">Value</th>
               <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {socialLinks.map((item: any) => (
+            {counters.map((item: any) => (
               <tr key={item.id} className="modern-table-tr">
-                <td className="modern-table-td">{item.name}</td>
-                <td className="modern-table-td">{item.path}</td>
+                <td className="modern-table-td">{item.title}</td>
+                <td className="modern-table-td">{item.value}</td>
                 <td className="modern-table-td">
                   <button
                     onClick={() => handleEdit(item)}
@@ -130,10 +129,10 @@ const SocialLinksForm = () => {
                 </td>
               </tr>
             ))}
-            {socialLinks.length === 0 && (
+            {counters.length === 0 && (
               <tr>
                 <td colSpan={3} className="modern-table-td text-center">
-                  No social links added.
+                  No counters added.
                 </td>
               </tr>
             )}
@@ -144,4 +143,4 @@ const SocialLinksForm = () => {
   );
 };
 
-export default SocialLinksForm;
+export default CountersDataForm;

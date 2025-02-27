@@ -6,7 +6,7 @@ interface DataType {
 }
 
 export default async function Page() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/data/data.json`, { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_BASE_URL}/data/data.json`, { cache: 'no-store' });
   const data: DataType = await res.json();
 
   return (

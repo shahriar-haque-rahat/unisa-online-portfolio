@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import JsonEditor from "./tools/JsonEditor";
+import JsonEditor from "../admin/tools/JsonEditor";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";

@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import JsonEditor from "./tools/JsonEditor";
-import ImageUploader from "./tools/ImageUploader";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+import { useEdgeStore } from "@/edgestore/edgestore";
+import JsonEditor from "../admin/tools/JsonEditor";
+import ImageUploaderEdgestore from "../admin/tools/ImageUploaderEdgestore";
 
 type BannerFormData = {
   image: string | File | null;
@@ -19,9 +20,14 @@ const BannerDataForm = () => {
     title: "",
     description: "",
   });
+  // Store the original image URL when editing
+  const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
+
+  // Get the Edgestore client
+  const { edgestore } = useEdgeStore();
 
   const fetchData = async () => {
     try {
@@ -42,10 +48,10 @@ const BannerDataForm = () => {
     setLoading(true);
     console.log("Submitting form. Current formData:", formData);
 
-    // Get the existing image URL if formData.image is already a string
+    // Use existing URL if formData.image is already a string.
     let imageUrl: string | null = typeof formData.image === "string" ? formData.image : null;
 
-    // Always call the uploader to attempt to upload a new file.
+    // Always call the uploader to attempt a new file upload.
     if (uploaderRef.current) {
       try {
         const newImageUrl = await uploaderRef.current.uploadImage();
@@ -59,7 +65,7 @@ const BannerDataForm = () => {
         console.error("Image upload failed:", err);
         toast.error("Image upload failed. Please try again.");
         setLoading(false);
-        return; // Halt submission if image upload fails
+        return;
       }
     }
 
@@ -69,12 +75,22 @@ const BannerDataForm = () => {
       if (editingId) {
         await JsonEditor.edit("bannerData", editingId, dataToSubmit);
         toast.success("Banner updated successfully!");
+        // If a new image was uploaded (new URL differs from the original), delete the old image.
+        if (originalImage && originalImage !== imageUrl) {
+          try {
+            await edgestore.publicFiles.delete({ url: originalImage });
+            console.log("Deleted old image from Edgestore:", originalImage);
+          } catch (error) {
+            console.error("Failed to delete old image from Edgestore:", error);
+          }
+        }
         setEditingId(null);
       } else {
         await JsonEditor.add("bannerData", dataToSubmit);
         toast.success("Banner added successfully!");
       }
       setFormData({ image: null, title: "", description: "" });
+      setOriginalImage(null);
       fetchData();
     } catch (error) {
       console.error("Error saving banner:", error);
@@ -87,6 +103,7 @@ const BannerDataForm = () => {
   const handleEdit = (item: any) => {
     console.log("Editing item:", item);
     setFormData({ image: item.image, title: item.title, description: item.description });
+    setOriginalImage(item.image);
     setEditingId(item.id);
   };
 
@@ -94,8 +111,19 @@ const BannerDataForm = () => {
     if (!confirm("Are you sure you want to delete this banner?")) return;
     try {
       console.log("Deleting banner with id:", id);
+      // Find the banner to delete (to retrieve its image URL)
+      const bannerToDelete = banners.find((item) => item.id === id);
       await JsonEditor.delete("bannerData", id);
       toast.success("Banner deleted successfully!");
+      // Delete the associated image from Edgestore
+      if (bannerToDelete?.image) {
+        try {
+          await edgestore.publicFiles.delete({ url: bannerToDelete.image });
+          console.log("Deleted image from Edgestore:", bannerToDelete.image);
+        } catch (error) {
+          console.error("Failed to delete image from Edgestore:", error);
+        }
+      }
       fetchData();
     } catch (error) {
       console.error("Error deleting banner:", error);
@@ -109,7 +137,6 @@ const BannerDataForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* IMAGE FIELD */}
         <div>
@@ -122,10 +149,11 @@ const BannerDataForm = () => {
                 className="w-20 h-20 object-cover rounded border"
               />
             )}
-            <ImageUploader
+            {/* Using ImageUploaderEdgestore */}
+            <ImageUploaderEdgestore
               ref={uploaderRef}
-              onUpload={(url) => {
-                console.log("ImageUploader onUpload called with url:", url);
+              onUpload={(url: any) => {
+                console.log("ImageUploaderEdgestore onUpload called with url:", url);
                 setFormData({ ...formData, image: url });
               }}
             />

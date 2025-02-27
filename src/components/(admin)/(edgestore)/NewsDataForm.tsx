@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import JsonEditor from "./tools/JsonEditor";
-import ImageUploader from "./tools/ImageUploader";
+import JsonEditor from "../admin/tools/JsonEditor";
+import ImageUploaderEdgestore from "../admin/tools/ImageUploaderEdgestore";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+import { useEdgeStore } from "@/edgestore/edgestore";
 
 const NewsDataForm = () => {
   const [news, setNews] = useState<any[]>([]);
@@ -18,6 +19,9 @@ const NewsDataForm = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const uploaderRef = useRef<{ uploadImage: () => Promise<string | null> }>(null);
+
+  // Get the Edgestore client
+  const { edgestore } = useEdgeStore();
 
   const fetchData = async () => {
     try {
@@ -33,6 +37,8 @@ const NewsDataForm = () => {
     fetchData();
   }, []);
 
+  // Adds an image to the form by uploading via Edgestore uploader.
+  // This button is separate from the submit button.
   const handleAddImage = async () => {
     if (uploaderRef.current) {
       try {
@@ -42,6 +48,7 @@ const NewsDataForm = () => {
             ...prev,
             imageSrc: [...prev.imageSrc, uploadedUrl],
           }));
+          console.log("Added image URL:", uploadedUrl);
         }
       } catch (err) {
         toast.error("Image upload failed.");
@@ -49,27 +56,20 @@ const NewsDataForm = () => {
     }
   };
 
-  // Remove image from form state and call the API to delete the file from the server
+  // Remove a single image from the form state and delete it from Edgestore.
   const handleRemoveImage = async (index: number) => {
     const imageToRemove = formData.imageSrc[index];
-    // Update UI immediately
+    // Update UI immediately.
     const updatedImages = formData.imageSrc.filter((_, i) => i !== index);
     setFormData({ ...formData, imageSrc: updatedImages });
 
-    // Call the API to remove the image file from the server
+    // Delete the image from Edgestore.
     try {
-      const res = await fetch("/api/upload", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageUrl: imageToRemove }),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to delete image on server");
-      }
+      await edgestore.publicFiles.delete({ url: imageToRemove });
       toast.success("Image removed successfully!");
     } catch (err) {
       console.error("Error deleting image:", err);
-      toast.error("Failed to delete image from server.");
+      toast.error("Failed to delete image from Edgestore.");
     }
   };
 
@@ -77,26 +77,8 @@ const NewsDataForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Always attempt to upload a new image (if any)
-    let imageUrls = formData.imageSrc;
-    if (uploaderRef.current) {
-      try {
-        const newImageUrl = await uploaderRef.current.uploadImage();
-        if (newImageUrl) {
-          imageUrls = [...imageUrls, newImageUrl];
-          console.log("Uploader returned new URL:", newImageUrl);
-        } else {
-          console.log("Uploader did not return a new URL; using existing images:", imageUrls);
-        }
-      } catch (err) {
-        console.error("Image upload failed:", err);
-        toast.error("Image upload failed. Please try again.");
-        setLoading(false);
-        return;
-      }
-    }
-
-    const dataToSubmit = { ...formData, imageSrc: imageUrls };
+    // Here, we simply use the existing formData.imageSrc array.
+    const dataToSubmit = { ...formData };
 
     try {
       if (editingId) {
@@ -107,6 +89,7 @@ const NewsDataForm = () => {
         await JsonEditor.add("newsData", dataToSubmit);
         toast.success("News added successfully!");
       }
+      // Reset form data.
       setFormData({ title: "", author: "", timestamp: "", content: "", imageSrc: [] });
       fetchData();
     } catch (error) {
@@ -122,18 +105,35 @@ const NewsDataForm = () => {
     setEditingId(item.id);
   };
 
+  // When deleting an entire news entry, remove all associated images from Edgestore.
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this news entry?")) return;
     try {
+      // Find the news entry to delete (to get its images)
+      const newsToDelete = news.find((item) => item.id === id);
       await JsonEditor.delete("newsData", id);
       toast.success("News deleted successfully!");
+  
+      // Group deletion: delete all images associated with this news entry using Promise.all
+      if (newsToDelete?.imageSrc && Array.isArray(newsToDelete.imageSrc)) {
+        await Promise.all(
+          newsToDelete.imageSrc.map(async (img: string) => {
+            try {
+              await edgestore.publicFiles.delete({ url: img });
+              console.log("Deleted image from Edgestore:", img);
+            } catch (error) {
+              console.error("Failed to delete image from Edgestore:", img, error);
+            }
+          })
+        );
+      }
       fetchData();
     } catch (error) {
       console.error("Error deleting news:", error);
       toast.error("Failed to delete news.");
     }
   };
-
+  
   return (
     <motion.div
       className="bg-white shadow-lg rounded-lg p-6 my-4"
@@ -157,7 +157,7 @@ const NewsDataForm = () => {
               </div>
             ))}
           </div>
-          <ImageUploader ref={uploaderRef} />
+          <ImageUploaderEdgestore ref={uploaderRef} />
           <button
             type="button"
             onClick={handleAddImage}
@@ -208,7 +208,7 @@ const NewsDataForm = () => {
         </button>
       </form>
 
-      {/* Table View */}
+      {/* Responsive Table Container */}
       <div className="modern-table-container mt-8">
         <table className="modern-table w-full">
           <thead>

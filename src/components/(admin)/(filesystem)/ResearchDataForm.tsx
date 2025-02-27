@@ -1,30 +1,30 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import JsonEditor from "./tools/JsonEditor";
-import ImageUploader from "./tools/ImageUploader";
+import JsonEditor from "../admin/tools/JsonEditor";
+import ImageUploader from "../admin/tools/ImageUploader";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 
-// Define a type for the form data.
-type ConferenceFormData = {
+// Define the type for the research form data.
+type ResearchFormData = {
   imageSrc: string | File | null;
   title: string;
-  authors: string;
-  publicationDate: string;
-  description: string;
   link: string;
+  description: string;
+  publicationName: string;
+  publicationDate: string;
 };
 
-const ConferenceDataForm = () => {
-  const [conferences, setConferences] = useState<any[]>([]);
-  const [formData, setFormData] = useState<ConferenceFormData>({
+const ResearchDataForm = () => {
+  const [researchEntries, setResearchEntries] = useState<any[]>([]);
+  const [formData, setFormData] = useState<ResearchFormData>({
     imageSrc: null,
     title: "",
-    authors: "",
-    publicationDate: "",
-    description: "",
     link: "",
+    description: "",
+    publicationName: "",
+    publicationDate: "",
   });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -32,11 +32,11 @@ const ConferenceDataForm = () => {
 
   const fetchData = async () => {
     try {
-      const data = await JsonEditor.getAll("conferenceData");
-      setConferences(data || []);
+      const data = await JsonEditor.getAll("researchData");
+      setResearchEntries(data || []);
     } catch (error) {
-      console.error("Error fetching conferences:", error);
-      toast.error("Failed to fetch conference data.");
+      console.error("Error fetching research data:", error);
+      toast.error("Failed to fetch research data.");
     }
   };
 
@@ -47,12 +47,11 @@ const ConferenceDataForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Submitting Conference form. Current formData:", formData);
 
-    // If formData.imageSrc is a string, use it as the initial imageUrl.
+    // Start with the existing image URL if formData.imageSrc is already a string.
     let imageUrl: string | null = typeof formData.imageSrc === "string" ? formData.imageSrc : null;
 
-    // Always attempt to upload the image.
+    // Always attempt to upload the image, just like BannerDataForm.
     if (uploaderRef.current) {
       try {
         const newImageUrl = await uploaderRef.current.uploadImage();
@@ -66,34 +65,32 @@ const ConferenceDataForm = () => {
         console.error("Image upload failed:", err);
         toast.error("Image upload failed. Please try again.");
         setLoading(false);
-        return; // Halt submission if image upload fails
+        return; // Stop submission if upload fails.
       }
     }
 
     const dataToSubmit = { ...formData, imageSrc: imageUrl };
     try {
       if (editingId) {
-        console.log("Editing conference with id:", editingId, "data:", dataToSubmit);
-        await JsonEditor.edit("conferenceData", editingId, dataToSubmit);
-        toast.success("Conference updated successfully!");
+        await JsonEditor.edit("researchData", editingId, dataToSubmit);
+        toast.success("Research updated successfully!");
         setEditingId(null);
       } else {
-        console.log("Adding new conference with data:", dataToSubmit);
-        await JsonEditor.add("conferenceData", dataToSubmit);
-        toast.success("Conference added successfully!");
+        await JsonEditor.add("researchData", dataToSubmit);
+        toast.success("Research added successfully!");
       }
       setFormData({
         imageSrc: null,
         title: "",
-        authors: "",
-        publicationDate: "",
-        description: "",
         link: "",
+        description: "",
+        publicationName: "",
+        publicationDate: "",
       });
       fetchData();
     } catch (error) {
-      console.error("Error saving conference:", error);
-      toast.error("Failed to save conference.");
+      console.error("Error saving research data:", error);
+      toast.error("Failed to save research data.");
     } finally {
       setLoading(false);
     }
@@ -105,14 +102,14 @@ const ConferenceDataForm = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this entry?")) return;
+    if (!confirm("Are you sure you want to delete this research entry?")) return;
     try {
-      await JsonEditor.delete("conferenceData", id);
-      toast.success("Conference deleted successfully!");
+      await JsonEditor.delete("researchData", id);
+      toast.success("Research entry deleted successfully!");
       fetchData();
     } catch (error) {
-      console.error("Error deleting conference:", error);
-      toast.error("Failed to delete conference.");
+      console.error("Error deleting research data:", error);
+      toast.error("Failed to delete research entry.");
     }
   };
 
@@ -124,27 +121,23 @@ const ConferenceDataForm = () => {
     >
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Image Field */}
+        {/* Research Image Field */}
         <div>
-          <label className="block font-medium text-gray-700 mb-1">Conference Image</label>
+          <label className="block font-medium text-gray-700 mb-1">Research Image</label>
           <div className="flex items-center gap-4">
             {formData.imageSrc && typeof formData.imageSrc === "string" && (
               <img
                 src={formData.imageSrc}
-                alt="Conference"
+                alt="Research"
                 className="w-20 h-20 object-cover rounded border"
               />
             )}
             <ImageUploader
               ref={uploaderRef}
-              onUpload={(url) => {
-                console.log("Conference ImageUploader onUpload called with:", url);
-                setFormData({ ...formData, imageSrc: url });
-              }}
+              onUpload={(url) => setFormData({ ...formData, imageSrc: url })}
             />
           </div>
         </div>
-        {/* Other fields */}
         <section className=" grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
@@ -156,26 +149,27 @@ const ConferenceDataForm = () => {
           />
           <input
             type="text"
-            placeholder="Authors"
-            value={formData.authors}
-            onChange={(e) => setFormData({ ...formData, authors: e.target.value })}
-            className="modern-input"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Publication Date (e.g., 17 Oct 2023)"
-            value={formData.publicationDate}
-            onChange={(e) => setFormData({ ...formData, publicationDate: e.target.value })}
-            className="modern-input"
-            required
-          />
-          <input
-            type="text"
             placeholder="Link"
             value={formData.link}
             onChange={(e) => setFormData({ ...formData, link: e.target.value })}
             className="modern-input"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Publication Name"
+            value={formData.publicationName}
+            onChange={(e) => setFormData({ ...formData, publicationName: e.target.value })}
+            className="modern-input"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Publication Date (e.g., January 15, 2023)"
+            value={formData.publicationDate}
+            onChange={(e) => setFormData({ ...formData, publicationDate: e.target.value })}
+            className="modern-input"
+            required
           />
         </section>
         <textarea
@@ -185,9 +179,12 @@ const ConferenceDataForm = () => {
           className="modern-input"
           required
         />
-
-        <button type="submit" disabled={loading} className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition">
-          {editingId ? "Update Conference" : "Add Conference"}
+        <button
+          type="submit"
+          disabled={loading}
+          className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700 transition"
+        >
+          {editingId ? "Update Research" : "Add Research"}
         </button>
       </form>
 
@@ -199,13 +196,13 @@ const ConferenceDataForm = () => {
               <th className="min-w-32 modern-table-th">Image</th>
               <th className="min-w-32 modern-table-th">Title</th>
               <th className="min-w-44 modern-table-th">Link</th>
-              <th className="min-w-32 modern-table-th">Authors</th>
+              <th className="min-w-44 modern-table-th">Publication Name</th>
               <th className="min-w-32 modern-table-th">Publication Date</th>
               <th className="min-w-28 modern-table-th">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {conferences.map((item: any) => (
+            {researchEntries.map((item: any) => (
               <tr key={item.id} className="modern-table-tr">
                 <td className="modern-table-td">
                   {item.imageSrc && (
@@ -214,9 +211,9 @@ const ConferenceDataForm = () => {
                 </td>
                 <td className="modern-table-td">{item.title}</td>
                 <td className="modern-table-td">{item.link}</td>
-                <td className="modern-table-td">{item.authors}</td>
+                <td className="modern-table-td">{item.publicationName}</td>
                 <td className="modern-table-td">{item.publicationDate}</td>
-                <td className="modern-table-td space-x-2">
+                <td className="modern-table-td">
                   <button
                     onClick={() => handleEdit(item)}
                     className="modern-edit-btn"
@@ -232,16 +229,16 @@ const ConferenceDataForm = () => {
                 </td>
               </tr>
             ))}
-            {conferences.length === 0 && (
+            {researchEntries.length === 0 && (
               <tr>
-                <td colSpan={4} className="modern-table-td text-center">No conference entries added.</td>
+                <td colSpan={4} className="modern-table-td text-center">No research entries added.</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-    </motion.div >
+    </motion.div>
   );
 };
 
-export default ConferenceDataForm;
+export default ResearchDataForm;

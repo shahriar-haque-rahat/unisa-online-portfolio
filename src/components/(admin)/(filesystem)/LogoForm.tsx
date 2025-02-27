@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import ImageUploader from "./tools/ImageUploader";
+import ImageUploader from "../admin/tools/ImageUploader";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
